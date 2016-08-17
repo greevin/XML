@@ -1,0 +1,198 @@
+body {
+    font-size: 12pt;
+    font-family: Calibri, "Trebuchet MS", arial, verdana, helvetica, sans-serif;
+}
+
+body.centered {
+    text-align: center;
+}
+
+#wrap.centered_report {
+    margin: 0 auto;
+    width: 80%;
+    text-align: left;
+}
+
+p,
+li,
+td {
+    font-size: 12pt;
+    font-family: Calibri, "Trebuchet MS", arial, verdana, helvetica, sans-serif;
+    color: #333;
+}
+
+hr {
+    height: 1px;
+    display: none;
+}
+
+div.logo {
+    width: 80%;
+    text-align: center;
+    display: inline-flex;
+    align-items: center;
+}
+
+#logo-img {
+    width: 60px;
+    height: 60px;
+}
+
+#logo-text {
+    margin-left: 30px;
+}
+
+h1,
+h1.main {
+    font-family: Calibri, "Trebuchet MS", verdana, arial, helvetic, sans-serif;
+    font-size: 14pt;
+    color: #333;
+}
+
+h1.title {
+    font-family: Calibri, "Trebuchet MS", verdana, arial, helvetic, sans-serif;
+    font-size: 40pt;
+    color: #333;
+}
+
+h2,
+h3 {
+    font-family: Calibri, "Trebuchet MS", verdana, arial, helvetic, sans-serif;
+    font-size: 12pt;
+    color: #333;
+}
+
+div.rowstyle0,
+td.rowstyle0 {
+    background-color: #e2f1ff;
+    vertical-align: middle;
+}
+
+div.rowstyle1,
+td.rowstyle1 {
+    background-color: #cedeee;
+    vertical-align: middle;
+}
+
+table.printabletable-break,
+table.printabletable-nobreak {
+    width: 100%;
+}
+
+table.printabletable-break th,
+table.printabletable-nobreak th {
+    padding-left: 6px;
+    padding-right: 6px;
+    background: #8DC0F1;
+    text-align: left;
+    font-size: 12pt;
+}
+
+table.printabletable-break td,
+table.printabletable-nobreak td {
+    padding-left: 6px;
+    padding-right: 6px;
+}
+
+div.separador {
+    height: 20px;
+}
+
+div.legenda {
+    padding-left: 6px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+div.legenda * {
+    padding-top: 0px;
+    padding-bottom: 0px;
+    font-size: 12pt;
+}
+
+th p {
+    margin: 0px;
+    font-size: 14pt;
+}
+
+td p {
+    margin: 0px;
+    font-size: 12pt;
+}
+
+@media print {
+    body,
+    p {
+        font-size: 10pt;
+    }
+    #wrap.centered_report {
+        width: 100%;
+    }
+    div.logo {
+        width: 100%;
+    }
+    #logo-img img {
+        display: none;
+        width: 60px;
+        height: 60px;
+    }
+    #logo-img:after {
+        content: url(../images/logo_escolas-pb.png);
+    }
+    table.printabletable-break {
+        page-break-before: always;
+        page-break-inside: auto;
+        width: 100%;
+    }
+    table.printabletable-nobreak {
+        page-break-before: avoid;
+        page-break-inside: avoid;
+        width: 100%;
+    }
+    table.printabletable-break th,
+    table.printabletable-nobreak th {
+        padding-left: 6px;
+        padding-right: 6px;
+        padding-top: 0px;
+        padding-bottom: 0px;
+        font-size: 11pt;
+    }
+    table.printabletable-break td,
+    table.printabletable-nobreak td {
+        padding-left: 6px;
+        padding-right: 6px;
+        padding-top: 0px;
+        padding-bottom: 0px;
+        font-size: 10pt;
+    }
+    th p {
+        margin: 0px;
+        font-size: 11pt;
+    }
+    td p {
+        margin-left: 20px;
+        font-size: 10pt;
+    }
+    div.separador {
+        height: 10px;
+    }
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
+        page-break-after: avoid;
+    }
+    figure {
+        page-break-inside: avoid;
+    }
+    @page {
+        size: A4;
+    }
+    @page :first {}
+    @page :blank {
+        @top-center {
+            content: "This page is intentionally left blank."
+        }
+    }
+}
