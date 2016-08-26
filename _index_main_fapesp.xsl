@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xsl:stylesheet version="1.0" 
-    xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
-    xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                xmlns:exslt="http://exslt.org/common"
+                exclude-result-prefixes="exslt"
+                version="1.0">
     <!--<xsl:output method="xml" indent="yes"/>-->
-    <atlas:data 
-        xmlns:atlas="urn:www.atlasti.com/xml/001">
+    <atlas:data
+            xmlns:atlas="urn:www.atlasti.com/xml/001">
         <atlasDescription version="2.1">
             <!-- Version of this description syntax -->
             <version number="2.1"/>
@@ -159,7 +160,8 @@
                                     <xsl:value-of select="ancestor::primDoc/@loc"/>
                                 </xsl:variable>
                                 <xsl:choose>
-                                    <xsl:when test="not(contains(ancestor::primDoc[@loc=$parentDocID]/@loc, 'me_')) and not(contains(//dataSource[@id = $parentDocID]/@mime,'text')) ">
+                                    <xsl:when
+                                            test="not(contains(ancestor::primDoc[@loc=$parentDocID]/@loc, 'me_')) and not(contains(//dataSource[@id = $parentDocID]/@mime,'text')) ">
                                         <xsl:if test="comment">
                                             <xsl:element name="comment">
                                                 <xsl:copy-of select="comment/*"/>
@@ -182,7 +184,8 @@
                                             <xsl:attribute name="docmimetype">
                                                 <!-- PD can also be a memo!!! -->
                                                 <xsl:choose>
-                                                    <xsl:when test="contains(ancestor::primDoc/@loc, 'me_')">text/rtf</xsl:when>
+                                                    <xsl:when test="contains(ancestor::primDoc/@loc, 'me_')">text/rtf
+                                                    </xsl:when>
                                                     <xsl:otherwise>
                                                         <xsl:value-of select="//dataSource[@id=$parentDocID]/@mime"/>
                                                     </xsl:otherwise>
@@ -220,8 +223,11 @@
                                             <xsl:attribute name="docmimetype">
                                                 <!-- PD can also be a memo!!! -->
                                                 <xsl:choose>
-                                                    <xsl:when test="contains(ancestor::primDoc/@loc, 'me_')">text/rtf</xsl:when>
-                                                    <xsl:when test="contains(ancestor::primDoc/@mime, 'indirect')">text/rtf</xsl:when>
+                                                    <xsl:when test="contains(ancestor::primDoc/@loc, 'me_')">text/rtf
+                                                    </xsl:when>
+                                                    <xsl:when test="contains(ancestor::primDoc/@mime, 'indirect')">
+                                                        text/rtf
+                                                    </xsl:when>
                                                     <xsl:otherwise>
                                                         <xsl:value-of select="//dataSource[@id=$parentDocID]/@mime"/>
                                                     </xsl:otherwise>
@@ -262,8 +268,11 @@
                                             <xsl:attribute name="docmimetype">
                                                 <!-- PD can also be a memo!!! -->
                                                 <xsl:choose>
-                                                    <xsl:when test="contains(ancestor::primDoc/@loc, 'me_')">text/rtf</xsl:when>
-                                                    <xsl:when test="contains(ancestor::primDoc/@mime, 'indirect')">text/rtf</xsl:when>
+                                                    <xsl:when test="contains(ancestor::primDoc/@loc, 'me_')">text/rtf
+                                                    </xsl:when>
+                                                    <xsl:when test="contains(ancestor::primDoc/@mime, 'indirect')">
+                                                        text/rtf
+                                                    </xsl:when>
                                                     <xsl:otherwise>
                                                         <xsl:value-of select="//dataSource[@id=$parentDocID]/@mime"/>
                                                     </xsl:otherwise>
@@ -294,6 +303,152 @@
             </xsl:if>
         </xsl:for-each>
     </xsl:variable>
+
+    <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+    <!-- create fragment tree, grouping all codes used per quote per PD  -->
+    <!-- the follwing code still located in NNN_pds_codes.xsl, removing from there creates error -->
+    <xsl:variable name="indextree_quotes_per_codes">
+        <xsl:for-each select="//primDocs/primDoc">
+            <xsl:element name="pd">
+                <xsl:attribute name="id">
+                    <xsl:value-of select="@id"/>
+                </xsl:attribute>
+                <xsl:attribute name="name">
+                    <xsl:value-of select="@name"/>
+                </xsl:attribute>
+                <xsl:attribute name="author">
+                    <xsl:value-of select="@au"/>
+                </xsl:attribute>
+                <xsl:attribute name="cDate">
+                    <xsl:value-of select="@cDate"/>
+                </xsl:attribute>
+                <xsl:attribute name="mDate">
+                    <xsl:value-of select="@mDate"/>
+                </xsl:attribute>
+                <xsl:if test="comment and comment!=''">
+                    <xsl:copy-of select="comment"/>
+                </xsl:if>
+                <xsl:for-each select="quotations/q">
+                    <xsl:variable name="qRef">
+                        <xsl:value-of select="@id"/>
+                    </xsl:variable>
+                    <!--<xsl:element name="q">-->
+                    <!--<xsl:attribute name="qRef">-->
+                    <!--<xsl:value-of select="@id"/>-->
+                    <!--</xsl:attribute>-->
+                    <!--<xsl:attribute name="name">-->
+                    <!--<xsl:value-of select="@name"/>-->
+                    <!--</xsl:attribute>-->
+                    <!--<xsl:attribute name="author">-->
+                    <!--<xsl:value-of select="@au"/>-->
+                    <!--</xsl:attribute>-->
+                    <!--<xsl:attribute name="cDate">-->
+                    <!--<xsl:value-of select="@cDate"/>-->
+                    <!--</xsl:attribute>-->
+                    <!--<xsl:attribute name="mDate">-->
+                    <!--<xsl:value-of select="@mDate"/>-->
+                    <!--</xsl:attribute>-->
+
+
+                    <xsl:for-each select="//codings/iLink[@qRef = $qRef]">
+                        <xsl:sort select="@obj"/>
+
+                        <xsl:variable name="codeid">
+                            <xsl:value-of select="@obj"/>
+                        </xsl:variable>
+
+                        <xsl:element name="code">
+                            <xsl:attribute name="id">
+                                <xsl:value-of select="@obj"/>
+                            </xsl:attribute>
+                            <xsl:attribute name="name">
+                                <xsl:value-of select="//codes/code[@id = $codeid]/@name"/>
+                            </xsl:attribute>
+                            <xsl:attribute name="linkedToQuote">
+                                <xsl:value-of select="$qRef"/>
+                            </xsl:attribute>
+                            <xsl:choose>
+                                <xsl:when test="//q[@id=$qRef]/content and //q[@id=$qRef]/content/@size &lt; $maxquotesize">
+                                    <xsl:attribute name="content">available</xsl:attribute>
+                                    <xsl:copy-of select="//q[@id=$qRef]/content/*"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:attribute name="content">unavailable</xsl:attribute>
+                                    <p>
+                                        <xsl:value-of select="//q[@id=$qRef]/@name"/>
+                                    </p>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:element>
+                    </xsl:for-each>
+
+
+                    <!--</xsl:element>-->
+                </xsl:for-each>
+            </xsl:element>
+        </xsl:for-each>
+    </xsl:variable>
+
+    <xsl:variable name="pdsWithCodes">
+        <xsl:for-each select="exslt:node-set($indextree_quotes_per_codes)//pd">
+            <xsl:sort select="@id"/>
+
+            <xsl:element name="pd">
+                <xsl:attribute name="id">
+                    <xsl:value-of select="@id"/>
+                </xsl:attribute>
+                <xsl:attribute name="name">
+                    <xsl:value-of select="@name"/>
+                </xsl:attribute>
+                <!--<xsl:attribute name="author">-->
+                <!--<xsl:value-of select="@au"/>-->
+                <!--</xsl:attribute>-->
+                <!--<xsl:attribute name="cDate">-->
+                <!--<xsl:value-of select="@cDate"/>-->
+                <!--</xsl:attribute>-->
+                <!--<xsl:attribute name="mDate">-->
+                <!--<xsl:value-of select="@mDate"/>-->
+                <!--</xsl:attribute>-->
+                <xsl:copy-of select="comment"/>
+                <xsl:for-each select="code[not(@id = ./following-sibling::code/@id)]">
+                    <xsl:sort select="@id"/>
+                    <xsl:variable name="codeID">
+                        <xsl:value-of select="@id"/>
+                    </xsl:variable>
+
+                    <xsl:variable name="codeName">
+                        <xsl:value-of select="@name"/>
+                    </xsl:variable>
+
+                    <xsl:element name="code">
+                        <xsl:attribute name="id">
+                            <xsl:value-of select="$codeID"/>
+                        </xsl:attribute>
+                        <xsl:attribute name="name">
+                            <xsl:value-of select="$codeName"/>
+                        </xsl:attribute>
+                        <xsl:attribute name="quotes">
+                            <xsl:value-of select="count(../code[@id=$codeID])"/>
+                        </xsl:attribute>
+
+                        <xsl:for-each select="../code[@id=$codeID]">
+                            <xsl:copy-of select="p"/>
+                        </xsl:for-each>
+
+                    </xsl:element>
+
+                </xsl:for-each>
+            </xsl:element>
+        </xsl:for-each>
+    </xsl:variable>
+
+    <!--<xsl:variable name="codeslist">-->
+        <!--<xsl:for-each select="exslt:node-set($indextree_quotes_per_codes)//code">-->
+            <!--<xsl:sort select="@id"/>-->
+            <!--<xsl:copy-of select="."/>-->
+        <!--</xsl:for-each>-->
+    <!--</xsl:variable>-->
+
     <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
     <xsl:variable name="uniquelist_codes_fulldata_OLD">
         <xsl:for-each select="storedHU/links/objectSegmentLinks/codings/iLink">
@@ -331,7 +486,8 @@
                                     <xsl:value-of select="ancestor::primDoc/@loc"/>
                                 </xsl:variable>
                                 <xsl:choose>
-                                    <xsl:when test="not(contains(ancestor::primDoc[@loc=$parentDocID]/@loc, 'me_')) and substring(//dataSource[@id = $parentDocID]/@mime,1,4) != 'text' ">
+                                    <xsl:when
+                                            test="not(contains(ancestor::primDoc[@loc=$parentDocID]/@loc, 'me_')) and substring(//dataSource[@id = $parentDocID]/@mime,1,4) != 'text' ">
                                         <xsl:element name="content">
                                             <xsl:attribute name="sourcename">
                                                 <xsl:value-of select="ancestor::primDoc/@name"/>
@@ -342,7 +498,8 @@
                                             <xsl:attribute name="docmimetype">
                                                 <!-- PD can also be a memo!!! -->
                                                 <xsl:choose>
-                                                    <xsl:when test="contains(ancestor::primDoc/@loc, 'me_')">text/rtf</xsl:when>
+                                                    <xsl:when test="contains(ancestor::primDoc/@loc, 'me_')">text/rtf
+                                                    </xsl:when>
                                                     <xsl:otherwise>
                                                         <xsl:value-of select="//dataSource[@id=$parentDocID]/@mime"/>
                                                     </xsl:otherwise>
@@ -375,7 +532,8 @@
                                             <xsl:attribute name="docmimetype">
                                                 <!-- PD can also be a memo!!! -->
                                                 <xsl:choose>
-                                                    <xsl:when test="contains(ancestor::primDoc/@loc, 'me_')">text/rtf</xsl:when>
+                                                    <xsl:when test="contains(ancestor::primDoc/@loc, 'me_')">text/rtf
+                                                    </xsl:when>
                                                     <xsl:otherwise>
                                                         <xsl:value-of select="//dataSource[@id=$parentDocID]/@mime"/>
                                                     </xsl:otherwise>
@@ -411,7 +569,8 @@
                                             <xsl:attribute name="docmimetype">
                                                 <!-- PD can also be a memo!!! -->
                                                 <xsl:choose>
-                                                    <xsl:when test="contains(ancestor::primDoc/@loc, 'me_')">text/rtf</xsl:when>
+                                                    <xsl:when test="contains(ancestor::primDoc/@loc, 'me_')">text/rtf
+                                                    </xsl:when>
                                                     <xsl:otherwise>
                                                         <xsl:value-of select="//dataSource[@id=$parentDocID]/@mime"/>
                                                     </xsl:otherwise>
@@ -442,61 +601,5 @@
             </xsl:if>
         </xsl:for-each>
     </xsl:variable>
-    <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-    <!-- create fragment tree, grouping all codes used per quote per PD  -->
-    <!-- the follwing code still located in NNN_pds_codes.xsl, removing from there creates error -->
-    <xsl:variable name="indextree_quotes_per_codes">
-        <xsl:for-each select="//primDocs/primDoc">
-            <xsl:element name="pd">
-                <xsl:attribute name="id">
-                    <xsl:value-of select="@id"/>
-                </xsl:attribute>
-                <xsl:attribute name="name">
-                    <xsl:value-of select="@name"/>
-                </xsl:attribute>
-                <xsl:attribute name="author">
-                    <xsl:value-of select="@au"/>
-                </xsl:attribute>
-                <xsl:attribute name="cDate">
-                    <xsl:value-of select="@cDate"/>
-                </xsl:attribute>
-                <xsl:attribute name="mDate">
-                    <xsl:value-of select="@mDate"/>
-                </xsl:attribute>
-                <xsl:if test="comment and comment!=''">
-                    <xsl:copy-of select="comment"/>
-                </xsl:if>
-                <xsl:for-each select="quotations/q">
-                    <xsl:variable name="qRef">
-                        <xsl:value-of select="@id"/>
-                    </xsl:variable>
-                    <!-- layer removed
-<xsl:element name="q"><xsl:attribute name="qRef"><xsl:value-of select="@id"/></xsl:attribute><xsl:attribute name="name"><xsl:value-of select="@name"/></xsl:attribute><xsl:attribute name="author"><xsl:value-of select="@au"/></xsl:attribute><xsl:attribute name="cDate"><xsl:value-of select="@cDate"/></xsl:attribute><xsl:attribute name="mDate"><xsl:value-of select="@mDate"/></xsl:attribute>
--->
-                    <xsl:for-each select="//codings/iLink[@qRef = $qRef]">
-                        <xsl:sort select="@name"/>
-                        <xsl:variable name="codeid">
-                            <xsl:value-of select="@obj"/>
-                        </xsl:variable>
-                        <xsl:element name="code">
-                            <xsl:attribute name="id">
-                                <xsl:value-of select="@obj"/>
-                            </xsl:attribute>
-                            <xsl:attribute name="name">
-                                <xsl:value-of select="//codes/code[@id = $codeid]/@name"/>
-                            </xsl:attribute>
-                            <xsl:attribute name="linkedToQuote">
-                                <xsl:value-of select="$qRef"/>
-                            </xsl:attribute>
-                        </xsl:element>
-                    </xsl:for-each>
-                    <!--</xsl:element>-->
-                </xsl:for-each>
-            </xsl:element>
-        </xsl:for-each>
-    </xsl:variable>
-    <!-- secondary fragment tree , use for more accurate sorting; currently disabled
-<xsl:variable name="codeslist"><xsl:for-each select="msxsl:node-set($indextree_quotes_per_codes)//codes"><xsl:sort select="@id" /><xsl:copy-of select="." /></xsl:for-each></xsl:variable>
--->
     <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
 </xsl:stylesheet>

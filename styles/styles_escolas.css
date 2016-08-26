@@ -23,7 +23,7 @@ td {
 
 hr {
     height: 1px;
-    display: none;
+    /*display: none;*/
 }
 
 div.logo {
@@ -187,7 +187,7 @@ td p {
         page-break-inside: avoid;
     }
     @page {
-        size: A4;
+        size: letter;
     }
     @page :first {}
     @page :blank {
