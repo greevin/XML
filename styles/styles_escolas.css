@@ -1,33 +1,263 @@
+@import url(http://fonts.googleapis.com/css?family=Lato:400,700);
+* {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
 body {
+    font-family: 'Dosis', sans-serif;
+    font-weight: 500;
     font-size: 12pt;
-    font-family: Calibri, "Trebuchet MS", arial, verdana, helvetica, sans-serif;
-}
-
-body.centered {
-    text-align: center;
-}
-
-#wrap.centered_report {
-    margin: 0 auto;
-    width: 80%;
-    text-align: left;
 }
 
 p,
 li,
 td {
     font-size: 12pt;
-    font-family: Calibri, "Trebuchet MS", arial, verdana, helvetica, sans-serif;
+    font-family: 'Dosis', sans-serif;
     color: #333;
 }
 
-hr {
-    height: 1px;
-    /*display: none;*/
+h1 {
+    font-size: 30pt;
+    text-align: center;
+    color: #1A2431;
 }
 
+h1.title {
+    font-size: 40pt;
+}
+
+h2,
+h3 {
+    font-size: 16pt;
+    color: #1A2431;
+}
+
+
+/*.accordion dl {}*/
+
+.accordion dt a {
+    text-align: left;
+    font-weight: 600;
+    padding: 1em;
+    display: block;
+    text-decoration: none;
+    color: #fff;
+    transition: background-color 0.3s ease-in-out;
+    -webkit-transition: background-color 0.3s ease-in-out;
+}
+
+.accordion dd {
+    -webkit-margin-start: 0px;
+    background-color: #1abc9c;
+    color: #fafafa;
+    font-size: 1em;
+    line-height: 1.5em;
+    width: 100%;
+}
+
+.accordion dd p {
+    padding: 0.5em 1em 0.5em 1em;
+    color: #fff;
+    margin: 0px;
+}
+
+.accordion {
+    position: relative;
+    background-color: #094c3f;
+}
+
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 2em 0 2em 0;
+}
+
+.accordionTitle {
+    background-color: #22313F;
+    border-bottom: 1px solid #2c3e50;
+}
+
+.accordionTitle:before {
+    content: "+";
+    font-size: 1.5em;
+    line-height: 0.5em;
+    float: left;
+    padding-right: 1em;
+    -moz-transition: -moz-transform 0.3s ease-in-out;
+    -o-transition: -o-transform 0.3s ease-in-out;
+    -webkit-transition: -webkit-transform 0.3s ease-in-out;
+    transition: transform 0.3s ease-in-out;
+}
+
+.accordionTitle:hover {
+    background-color: #2c3e50;
+}
+
+.accordionTitleActive {
+    background-color: #34495e;
+}
+
+.accordionTitleActive:before {
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.accordionItem {
+    overflow: hidden;
+    display: inline-table;
+}
+
+@media all {
+    .accordionItem {
+        max-height: 50em;
+        -moz-transition: max-height 0.5s;
+        -o-transition: max-height 0.5s;
+        -webkit-transition: max-height 0.5s;
+        transition: max-height 0.5s;
+    }
+}
+
+@media screen and (min-width: 48em) {
+    .accordionItem {
+        max-height: 15em;
+        -moz-transition: max-height 0.5s;
+        -o-transition: max-height 0.5s;
+        -webkit-transition: max-height 0.5s;
+        transition: max-height 0.5s;
+    }
+}
+
+.accordionItemCollapsed {
+    max-height: 0;
+    display: block;
+}
+
+.animateIn {
+    -webkit-animation-name: accordionIn;
+    -webkit-animation-duration: 0.5s;
+    -webkit-animation-iteration-count: 1;
+    -webkit-animation-direction: alternate;
+    -webkit-animation-timing-function: ease-in-out;
+    -webkit-animation-fill-mode: both;
+    -webkit-animation-delay: 0s;
+    -moz-animation-name: accordionIn;
+    -moz-animation-duration: 0.5s;
+    -moz-animation-iteration-count: 1;
+    -moz-animation-direction: alternate;
+    -moz-animation-timing-function: ease-in-out;
+    -moz-animation-fill-mode: both;
+    -moz-animation-delay: 0s;
+    animation-name: accordionIn;
+    animation-duration: 0.5s;
+    animation-iteration-count: 1;
+    animation-direction: alternate;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: both;
+    animation-delay: 0s;
+}
+
+.animateOut {
+    -webkit-animation-name: accordionOut;
+    -webkit-animation-duration: 0.5s;
+    -webkit-animation-iteration-count: 1;
+    -webkit-animation-direction: alternate;
+    -webkit-animation-timing-function: ease-in-out;
+    -webkit-animation-fill-mode: both;
+    -webkit-animation-delay: 0s;
+    -moz-animation-name: accordionOut;
+    -moz-animation-duration: 0.5s;
+    -moz-animation-iteration-count: 1;
+    -moz-animation-direction: alternate;
+    -moz-animation-timing-function: ease-in-out;
+    -moz-animation-fill-mode: both;
+    -moz-animation-delay: 0s;
+    animation-name: accordionOut;
+    animation-duration: 0.5s;
+    animation-iteration-count: 1;
+    animation-direction: alternate;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: both;
+    animation-delay: 0s;
+}
+
+@-webkit-keyframes accordionIn {
+    0% {
+        opacity: 0;
+        -webkit-transform: scale(0.8);
+    }
+    100% {
+        opacity: 1;
+        -webkit-transform: scale(1);
+    }
+}
+
+@-moz-keyframes accordionIn {
+    0% {
+        opacity: 0;
+        -moz-transform: scale(0.8);
+    }
+    100% {
+        opacity: 1;
+        -moz-transform: scale(1);
+    }
+}
+
+@keyframes accordionIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@-webkit-keyframes accordionOut {
+    0% {
+        opacity: 1;
+        -webkit-transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        -webkit-transform: scale(0.8);
+    }
+}
+
+@-moz-keyframes accordionOut {
+    0% {
+        opacity: 1;
+        -moz-transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        -moz-transform: scale(0.8);
+    }
+}
+
+@keyframes accordionOut {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+}
+
+
+/*
+ESCOLAS
+*/
+
 div.logo {
-    width: 80%;
+    width: 100%;
+    max-height: 60px;
     text-align: center;
     display: inline-flex;
     align-items: center;
@@ -42,35 +272,15 @@ div.logo {
     margin-left: 30px;
 }
 
-h1,
-h1.main {
-    font-family: Calibri, "Trebuchet MS", verdana, arial, helvetic, sans-serif;
-    font-size: 14pt;
-    color: #333;
-}
-
-h1.title {
-    font-family: Calibri, "Trebuchet MS", verdana, arial, helvetic, sans-serif;
-    font-size: 40pt;
-    color: #333;
-}
-
-h2,
-h3 {
-    font-family: Calibri, "Trebuchet MS", verdana, arial, helvetic, sans-serif;
-    font-size: 12pt;
-    color: #333;
-}
-
 div.rowstyle0,
 td.rowstyle0 {
-    background-color: #e2f1ff;
+    background-color: #1abc9c;
     vertical-align: middle;
 }
 
 div.rowstyle1,
 td.rowstyle1 {
-    background-color: #cedeee;
+    background-color: #16a085;
     vertical-align: middle;
 }
 
@@ -81,17 +291,15 @@ table.printabletable-nobreak {
 
 table.printabletable-break th,
 table.printabletable-nobreak th {
-    padding-left: 6px;
-    padding-right: 6px;
-    background: #8DC0F1;
+    padding-left: 0em;
     text-align: left;
     font-size: 12pt;
+    background: #094c3f;
 }
 
 table.printabletable-break td,
 table.printabletable-nobreak td {
-    padding-left: 6px;
-    padding-right: 6px;
+    padding-left: 1.5em;
 }
 
 div.separador {
@@ -104,19 +312,11 @@ div.legenda {
     padding-bottom: 0px;
 }
 
-div.legenda * {
-    padding-top: 0px;
-    padding-bottom: 0px;
-    font-size: 12pt;
-}
-
 th p {
-    margin: 0px;
     font-size: 14pt;
 }
 
 td p {
-    margin: 0px;
     font-size: 12pt;
 }
 
@@ -124,9 +324,6 @@ td p {
     body,
     p {
         font-size: 10pt;
-    }
-    #wrap.centered_report {
-        width: 100%;
     }
     div.logo {
         width: 100%;

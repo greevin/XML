@@ -1,208 +1,229 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet version="1.0"
-	xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-	<atlas:data 
-		xmlns:atlas="urn:www.atlasti.com/xml/001">
-		<atlasDescription version = "2.1">
-			<!-- Version of this description syntax -->
-			<version number="2.1"/>
-			<!-- version of this stylesheet -->
-			<friendlyName>XSLT stylesheet library</friendlyName>
-			<!-- To be displayed in ATLAS.ti -->
-			<shortDescription>contains templates/elements shared by all ATLAS.ti stylesheets</shortDescription>
-			<category>library</category>
-			<complexity></complexity>
-			<!-- Computational complexity -->
-			<iconPath></iconPath>
-			<!-- To be displayed in ATLAS.ti -->
-			<author name="Thomas Ringmayr" email="xml@support.atlasti.com" url="www.atlasti.com/xml.html"/>
-			<creationDate>2003-06-30</creationDate>
-			<modificationDate>2010-12-09</modificationDate>
-			<!-- Now uses utf-8 in htmlhead -->
-			<sourceType type = "" version = ""/>
-			<!-- XML type acccepted as input -->
-			<targetDocType></targetDocType>
-		</atlasDescription>
-	</atlas:data>
-	<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-	<xsl:variable name="imagedir">images/</xsl:variable>
-	<xsl:variable name="stylesdir">styles/</xsl:variable>
-	<!-- empty for images in the same directory;do not forget end slash for other dirs! -->
-	<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-	<xsl:variable name="outputOption">Para este relatório funcionar corretamente, você deve selecionar a opção "Include Primary Documents and Quotations (meta info only).</xsl:variable>
-	<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-	<xsl:variable name="warnmessage">
-		<div>
-			<p style="style: italic; font-weight: bold; ">O conteúdo completo da citação não pode ser exibido por uma das seguitnes possibildiades: (a) a fonte de informação não é um arquivo de texto; ou (b) o tamanho é muito grande.</p>
-		</div>
-	</xsl:variable>
-	<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-	<xsl:template name="htmlhead">
-		<meta content="text/html; charset=utf-8" http-equiv="Content-Type"></meta>
-		<title>
-			<xsl:value-of select="$description/friendlyName"/>
-		</title>
-		<link rel="stylesheet" href="{$stylesdir}styles_escolas.css" type="text/css"/>
-	</xsl:template>
-	<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-	<xsl:template name="pagehead_report">
-		<div class="logo">
-			<div id="logo-img">
-				<img src="{$imagedir}/logo_escolas.png" alt="Projeto FAPESP Escolas" class="logo"/>
-			</div>
-			<div id="logo-text">
-				<h1 class="title">
-					<xsl:value-of select="$description/friendlyName"/>
-				</h1>
-			</div>
-		</div>
-	</xsl:template>
-	<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-	<xsl:template name="properIDformat">
-		<xsl:param name="thisID" />
-		<xsl:value-of select="translate($thisID,'_',':')" />
-	</xsl:template>
-	<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-	<xsl:template name="properLOCformat">
-		<xsl:param name="thisloc" />
-		<xsl:param name="docmimetype" />
-		<xsl:variable name="rtf_part1">
-			<xsl:value-of select="substring-after(substring-before($thisloc,','), '@')" />
-		</xsl:variable>
-		<xsl:variable name="rtf_part2">
-			<xsl:value-of select="substring-before(substring-after(substring-after($thisloc,','),'@'), '!')" />
-		</xsl:variable>
-		<xsl:variable name="pdf_innerval" select="substring-before(substring-after($thisloc, 'text:v02:'), ':!')" />
-		<!-- this prefix may change with different pdf versions -->
-		<xsl:variable name="pdf_part2">
-			<xsl:value-of select="substring-after(substring-after($pdf_innerval, ':'),':')" />
-		</xsl:variable>
-		<xsl:variable name="pdf_part1">
-			<xsl:value-of select="substring-before($pdf_innerval, $pdf_part2)" />
-		</xsl:variable>
-		<xsl:variable name="len">
-			<xsl:value-of select="string-length($pdf_part1) -1"/>
-		</xsl:variable>
-		<xsl:variable name="pdf_part1_proper">
-			<xsl:value-of select="substring($pdf_part1, 1, $len)" />
-		</xsl:variable>
-		<!--(((FULL LOC: <xsl:value-of select="$thisloc" />)))   show full loc info for testing/comparison -->
-		<xsl:choose>
-			<xsl:when test="$docmimetype = 'text/pdf'">
-				<xsl:value-of select="$pdf_part1_proper"/>
-				<xsl:text>-</xsl:text>
-				<xsl:value-of select="$pdf_part2"/>
-			</xsl:when>
-			<xsl:when test="$docmimetype = 'text/rtf'">
-				<xsl:value-of select="$rtf_part1"/>
-				<xsl:text>: </xsl:text>
-				<xsl:value-of select="$rtf_part2"/>
-			</xsl:when>
-			<xsl:when test="$docmimetype = 'bmp'">
-				<!--MimeType is Bitmap; same format as RTF -->
-				<xsl:value-of select="$rtf_part1"/>
-				<xsl:text>: </xsl:text>
-				<xsl:value-of select="$rtf_part2"/>
-			</xsl:when>
-			<xsl:when test="$docmimetype = 'snd'">
-				<!-- MimeType is AUDIO; only stores rudimentary data to XML -->
-				<xsl:value-of select="substring-before($thisloc, ',')" />
-				<xsl:text>: </xsl:text>
-				<xsl:value-of select="substring-after($thisloc, ',')" />
-			</xsl:when>
-			<xsl:when test="$docmimetype = 'vid'">
-				<!-- MimeType is VIDEO -->
-				<xsl:value-of select="substring-before($thisloc, ',')" />
-				<xsl:text>: </xsl:text>
-				<xsl:value-of select="translate(substring-after($thisloc, ','), '!', '')" />
-				<!-- removes exclamation point -->
-			</xsl:when>
-			<xsl:when test="contains($docmimetype, 'geo')">
-				<!-- MimeType is GEODATA -->
-				<!-- do nothing - XML geodata format too complex -->
-			</xsl:when>
-			<xsl:otherwise>
-				<!-- do nothing // mime type not understood or supported by this stylesheet -->
-			</xsl:otherwise>
-		</xsl:choose>
-	</xsl:template>
-	<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-	<xsl:template name="properCDate">
-		<xsl:choose>
-			<xsl:when test="not(@cDate)">[no date]</xsl:when>
-			<xsl:when test="@cDate=''">[date empty]</xsl:when>
-			<xsl:otherwise>
-				<xsl:value-of select="substring(@cDate, 6,2)"/>-																
-				<xsl:value-of select="substring(@cDate, 9,2)"/>-																
-				<xsl:value-of select="substring(@cDate, 1,4)"/>
-			</xsl:otherwise>
-		</xsl:choose>
-	</xsl:template>
-	<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-	<xsl:template name="script_exporttable">
-		<!--  CENTRALLY DISABLED
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                version="1.0">
+    <atlas:data
+            xmlns:atlas="urn:www.atlasti.com/xml/001">
+        <atlasDescription version="2.1">
+            <!-- Version of this description syntax -->
+            <version number="2.1"/>
+            <!-- version of this stylesheet -->
+            <friendlyName>XSLT stylesheet library</friendlyName>
+            <!-- To be displayed in ATLAS.ti -->
+            <shortDescription>contains templates/elements shared by all ATLAS.ti stylesheets</shortDescription>
+            <category>library</category>
+            <complexity></complexity>
+            <!-- Computational complexity -->
+            <iconPath></iconPath>
+            <!-- To be displayed in ATLAS.ti -->
+            <author name="Thomas Ringmayr" email="xml@support.atlasti.com" url="www.atlasti.com/xml.html"/>
+            <creationDate>2003-06-30</creationDate>
+            <modificationDate>2010-12-09</modificationDate>
+            <!-- Now uses utf-8 in htmlhead -->
+            <sourceType type="" version=""/>
+            <!-- XML type acccepted as input -->
+            <targetDocType></targetDocType>
+        </atlasDescription>
+    </atlas:data>
+    <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+    <xsl:variable name="imagedir">images/</xsl:variable>
+    <xsl:variable name="stylesdir">styles/</xsl:variable>
+    <!-- empty for images in the same directory;do not forget end slash for other dirs! -->
+    <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+    <xsl:variable name="outputOption">Para este relatório funcionar corretamente, você deve selecionar a opção "Include
+        Primary Documents and Quotations (meta info only).
+    </xsl:variable>
+    <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+    <xsl:variable name="warnmessage">
+        <div>
+            <p style="style: italic; font-weight: bold; ">O conteúdo completo da citação não pode ser exibido por uma
+                das seguitnes possibildiades: (a) a fonte de informação não é um arquivo de texto; ou (b) o tamanho é
+                muito grande.
+            </p>
+        </div>
+    </xsl:variable>
+    <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+    <xsl:template name="htmlhead">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type"></meta>
+        <title>
+            <xsl:value-of select="$description/friendlyName"/>
+        </title>
+        <link href="https://fonts.googleapis.com/css?family=Dosis" rel="stylesheet"/>
+        <link rel="stylesheet" href="{$stylesdir}styles_escolas.css" type="text/css"/>
 
-	<script type="text/javascript">
-		<![CDATA[
-	function exportToExcel()
-	{
-	var oExcel = new ActiveXObject("Excel.Application");
-	var oBook = oExcel.Workbooks.Add;
-	var oSheet = oBook.Worksheets(1);
-	for (var y=0;y<detailsTable.rows.length;y++)   // <<< "detailsTable" is the table to be exported
-	{
-	for (var x=0;x<detailsTable.rows(y).cells.length;x++)
-	{
-	oSheet.Cells(y+1,x+1) =
-	detailsTable.rows(y).cells(x).innerText;
-	}
-	}
-	oExcel.Visible = true;
-	oExcel.UserControl = true;
-	}
-	</script>
-	>]]></script>		-->
-	</xsl:template>
-	<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-	<xsl:template name="button_exportToExcel">
-		<!--  CENTRALLY DISABLED
+    </xsl:template>
+    <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+    <xsl:template name="pagehead_report">
+        <div class="logo">
+            <div id="logo-img">
+                <img src="{$imagedir}/logo_escolas.png" alt="Projeto FAPESP Escolas" class="logo"/>
+            </div>
+            <div id="logo-text">
+                <h1 class="title">
+                    <xsl:value-of select="$description/friendlyName"/>
+                </h1>
+            </div>
+        </div>
+    </xsl:template>
+    <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+    <xsl:template name="properIDformat">
+        <xsl:param name="thisID"/>
+        <xsl:value-of select="translate($thisID,'_',':')"/>
+    </xsl:template>
+    <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+    <xsl:template name="properLOCformat">
+        <xsl:param name="thisloc"/>
+        <xsl:param name="docmimetype"/>
+        <xsl:variable name="rtf_part1">
+            <xsl:value-of select="substring-after(substring-before($thisloc,','), '@')"/>
+        </xsl:variable>
+        <xsl:variable name="rtf_part2">
+            <xsl:value-of select="substring-before(substring-after(substring-after($thisloc,','),'@'), '!')"/>
+        </xsl:variable>
+        <xsl:variable name="pdf_innerval" select="substring-before(substring-after($thisloc, 'text:v02:'), ':!')"/>
+        <!-- this prefix may change with different pdf versions -->
+        <xsl:variable name="pdf_part2">
+            <xsl:value-of select="substring-after(substring-after($pdf_innerval, ':'),':')"/>
+        </xsl:variable>
+        <xsl:variable name="pdf_part1">
+            <xsl:value-of select="substring-before($pdf_innerval, $pdf_part2)"/>
+        </xsl:variable>
+        <xsl:variable name="len">
+            <xsl:value-of select="string-length($pdf_part1) -1"/>
+        </xsl:variable>
+        <xsl:variable name="pdf_part1_proper">
+            <xsl:value-of select="substring($pdf_part1, 1, $len)"/>
+        </xsl:variable>
+        <!--(((FULL LOC: <xsl:value-of select="$thisloc" />)))   show full loc info for testing/comparison -->
+        <xsl:choose>
+            <xsl:when test="$docmimetype = 'text/pdf'">
+                <xsl:value-of select="$pdf_part1_proper"/>
+                <xsl:text>-</xsl:text>
+                <xsl:value-of select="$pdf_part2"/>
+            </xsl:when>
+            <xsl:when test="$docmimetype = 'text/rtf'">
+                <xsl:value-of select="$rtf_part1"/>
+                <xsl:text>: </xsl:text>
+                <xsl:value-of select="$rtf_part2"/>
+            </xsl:when>
+            <xsl:when test="$docmimetype = 'bmp'">
+                <!--MimeType is Bitmap; same format as RTF -->
+                <xsl:value-of select="$rtf_part1"/>
+                <xsl:text>: </xsl:text>
+                <xsl:value-of select="$rtf_part2"/>
+            </xsl:when>
+            <xsl:when test="$docmimetype = 'snd'">
+                <!-- MimeType is AUDIO; only stores rudimentary data to XML -->
+                <xsl:value-of select="substring-before($thisloc, ',')"/>
+                <xsl:text>: </xsl:text>
+                <xsl:value-of select="substring-after($thisloc, ',')"/>
+            </xsl:when>
+            <xsl:when test="$docmimetype = 'vid'">
+                <!-- MimeType is VIDEO -->
+                <xsl:value-of select="substring-before($thisloc, ',')"/>
+                <xsl:text>: </xsl:text>
+                <xsl:value-of select="translate(substring-after($thisloc, ','), '!', '')"/>
+                <!-- removes exclamation point -->
+            </xsl:when>
+            <xsl:when test="contains($docmimetype, 'geo')">
+                <!-- MimeType is GEODATA -->
+                <!-- do nothing - XML geodata format too complex -->
+            </xsl:when>
+            <xsl:otherwise>
+                <!-- do nothing // mime type not understood or supported by this stylesheet -->
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+    <xsl:template name="properCDate">
+        <xsl:choose>
+            <xsl:when test="not(@cDate)">[no date]</xsl:when>
+            <xsl:when test="@cDate=''">[date empty]</xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="substring(@cDate, 6,2)"/>-
+                <xsl:value-of select="substring(@cDate, 9,2)"/>-
+                <xsl:value-of select="substring(@cDate, 1,4)"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+    <xsl:template name="script_exporttable">
+        <!--  CENTRALLY DISABLED
+
+    <script type="text/javascript">
+        <![CDATA[
+    function exportToExcel()
+    {
+    var oExcel = new ActiveXObject("Excel.Application");
+    var oBook = oExcel.Workbooks.Add;
+    var oSheet = oBook.Worksheets(1);
+    for (var y=0;y<detailsTable.rows.length;y++)   // <<< "detailsTable" is the table to be exported
+    {
+    for (var x=0;x<detailsTable.rows(y).cells.length;x++)
+    {
+    oSheet.Cells(y+1,x+1) =
+    detailsTable.rows(y).cells(x).innerText;
+    }
+    }
+    oExcel.Visible = true;
+    oExcel.UserControl = true;
+    }
+    </script>
+    >]]></script>		-->
+    </xsl:template>
+    <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+    <xsl:template name="button_exportToExcel">
+        <!--  CENTRALLY DISABLED
 <button onclick="exportToExcel();">Export to Excel File</button>
 -->
-	</xsl:template>
-	<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-	<xsl:template name="script_expandsection">
-		<script type="text/javascript" language="javascript">
-			<xsl:comment>		function doSection (secNum){ 		if (secNum.style.display=="none"){secNum.style.display=""} else{secNum.style.display="none"}		}		function noSection (secNum){			if (secNum.style.display==""){secNum.style.display="none"}		}	</xsl:comment>
-		</script>
-	</xsl:template>
-	<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-	<xsl:template name="script_expandsection_multiple">
-		<script type="text/javascript" language="javascript">
-			<xsl:comment></xsl:comment>
-		</script>
-	</xsl:template>
-	<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-	<xsl:template name="script_switchCSS">
-		<script type="text/javascript" language="javascript">
-			<xsl:comment>function switchStyles(src) {document.getElementsByTagName("link")[0].setAttribute('href',src)}</xsl:comment>
-		</script>
-	</xsl:template>
-	<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-	<xsl:template name="script_drag">
-		<script type="text/javascript" language="JavaScript1.2">
-			<xsl:comment>var ie=document.allvar ns6=document.getElementById&amp;&amp;!document.allvar dragapproved=falsevar z,x,yfunction move(e){if (dragapproved){z.style.left=ns6? temp1+e.clientX-x: temp1+event.clientX-xz.style.top=ns6? temp2+e.clientY-y : temp2+event.clientY-yreturn false}}function drags(e){if (!ie&amp;&amp;!ns6)returnvar firedobj=ns6? e.target : event.srcElementvar topelement=ns6? "HTML" : "BODY"while (firedobj.tagName!=topelement&amp;&amp;firedobj.className!="drag"){firedobj=ns6? firedobj.parentNode : firedobj.parentElement}if (firedobj.className=="drag"){dragapproved=truez=firedobjtemp1=parseInt(z.style.left+0)temp2=parseInt(z.style.top+0)x=ns6? e.clientX: event.clientXy=ns6? e.clientY: event.clientYdocument.onmousemove=movereturn false}}document.onmousedown=dragsdocument.onmouseup=new Function("dragapproved=false")//</xsl:comment>
-		</script>
-	</xsl:template>
-	<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-	<xsl:template name="CSS">
-		<link rel="stylesheet" href="{$stylesdir}ATLASti.css" type="text/css"/>
-	</xsl:template>
-	<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-	<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-	<xsl:template name="script_stickynote">
-		<script type="text/javascript" language="javascript">
-			<xsl:comment>
-				<![CDATA[
+    </xsl:template>
+    <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+    <xsl:template name="script_expandsection">
+        <script type="text/javascript" language="javascript">
+            <xsl:comment>function doSection (secNum){ if (secNum.style.display=="none"){secNum.style.display=""}
+                else{secNum.style.display="none"} } function noSection (secNum){ if
+                (secNum.style.display==""){secNum.style.display="none"} }
+            </xsl:comment>
+        </script>
+    </xsl:template>
+    <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+    <xsl:template name="script_expandsection_multiple">
+        <script type="text/javascript" language="javascript">
+            <xsl:comment></xsl:comment>
+        </script>
+    </xsl:template>
+    <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+    <xsl:template name="script_switchCSS">
+        <script type="text/javascript" language="javascript">
+            <xsl:comment>function switchStyles(src)
+                {document.getElementsByTagName("link")[0].setAttribute('href',src)}
+            </xsl:comment>
+        </script>
+    </xsl:template>
+    <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+    <xsl:template name="script_drag">
+        <script type="text/javascript" language="JavaScript1.2">
+            <xsl:comment>var ie=document.allvar ns6=document.getElementById&amp;&amp;!document.allvar
+                dragapproved=falsevar z,x,yfunction move(e){if (dragapproved){z.style.left=ns6? temp1+e.clientX-x:
+                temp1+event.clientX-xz.style.top=ns6? temp2+e.clientY-y : temp2+event.clientY-yreturn false}}function
+                drags(e){if (!ie&amp;&amp;!ns6)returnvar firedobj=ns6? e.target : event.srcElementvar topelement=ns6?
+                "HTML" : "BODY"while (firedobj.tagName!=topelement&amp;&amp;firedobj.className!="drag"){firedobj=ns6?
+                firedobj.parentNode : firedobj.parentElement}if
+                (firedobj.className=="drag"){dragapproved=truez=firedobjtemp1=parseInt(z.style.left+0)temp2=parseInt(z.style.top+0)x=ns6?
+                e.clientX: event.clientXy=ns6? e.clientY: event.clientYdocument.onmousemove=movereturn
+                false}}document.onmousedown=dragsdocument.onmouseup=new Function("dragapproved=false")//
+            </xsl:comment>
+        </script>
+    </xsl:template>
+    <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+    <xsl:template name="CSS">
+        <link rel="stylesheet" href="{$stylesdir}ATLASti.css" type="text/css"/>
+    </xsl:template>
+    <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+    <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+    <xsl:template name="script_stickynote">
+        <script type="text/javascript" language="javascript">
+            <xsl:comment>
+                <![CDATA[
 
 /***********************************************
 * Sticky Note script- � Dynamic Drive DHTML code library (www.dynamicdrive.com)
@@ -303,14 +324,14 @@ else if (document.getElementById) window.onload=initfunction document.cookie="fa
 }
 
 ]]>
-			</xsl:comment>
-		</script>
-	</xsl:template>
-	<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-	<xsl:template name="script_tabcontent">
-		<script type="text/javascript" language="javascript">
-			<xsl:comment>
-				<![CDATA[
+            </xsl:comment>
+        </script>
+    </xsl:template>
+    <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+    <xsl:template name="script_tabcontent">
+        <script type="text/javascript" language="javascript">
+            <xsl:comment>
+                <![CDATA[
 
 //** Tab Content script- � Dynamic Drive DHTML code library (http://www.dynamicdrive.com)
 //** Last updated: June 29th, 06
@@ -391,116 +412,117 @@ document.cookie = name+"="+value //cookie value is domain wide (path=/)
 
 
 ]]>
-			</xsl:comment>
-		</script>
-	</xsl:template>
-	<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-	<xsl:template name="closeButton">
-		<xsl:param name="id" />
-		<xsl:param name="position" />
-		<!-- position close symbol individually in relation to div/td, e.g. above it -->
-		<div class="close">
-			<xsl:attribute name="style">
-				<xsl:text>cursor: hand;</xsl:text>
-				<xsl:if test="$position and $position!=''">
-					<xsl:value-of select="$position"/>
-				</xsl:if>
-			</xsl:attribute>
-			<xsl:attribute name="onclick">noSection(																
-				<xsl:value-of select="$id"/>)												
-			</xsl:attribute>
-			<xsl:attribute name="onmousedown">noSection(																
-				<xsl:value-of select="$id"/>)												
-			</xsl:attribute>
-			<img src="{$imagedir}close_w7_small.png" alt="close" border="0" />
-		</div>
-	</xsl:template>
-	<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-	<xsl:template name="simplepagefooter">
-		<p>
-			<xsl:text>ATLAS</xsl:text>
-			<span style="color:#f00">.</span>
-			<xsl:text>ti XSL Stylesheet Demo</xsl:text>
-			<xsl:text>: </xsl:text>
-			<strong>
-				<xsl:value-of select="$description/friendlyName"/>
-			</strong>
-			<xsl:text> - </xsl:text>
-			<xsl:value-of select="$description/shortDescription"/>
-		</p>
-		<xsl:if test="$description/author">
-			<p>
-				<xsl:text>Author: </xsl:text>
-				<xsl:value-of select="$description/author/@name"/>
-				<xsl:if test="$description/author/@company and $description/author/@company!=''">
-					<xsl:text>  | </xsl:text>
-					<xsl:value-of select="$description/author/@company"/>
-				</xsl:if>
-				<xsl:if test="$description/author/@email and $description/author/@email!=''">
-					<xsl:text>  | </xsl:text>
-					<a target="_blank" href="mailto:{$description/author/@email}">
-						<xsl:value-of select="$description/author/@email"/>
-					</a>
-				</xsl:if>
-				<xsl:if test="$description/author/@url and $description/author/@url!=''">
-					<xsl:text>  | </xsl:text>
-					<a target="_blank" href="{$description/author/@url}">
-						<xsl:value-of select="$description/author/@url"/>
-					</a>
-				</xsl:if>
-			</p>
-		</xsl:if>
-		<p>
-			<xsl:text>HU: </xsl:text>
-			<xsl:text>Title: </xsl:text>
-			<strong>
-				<xsl:value-of select="//hermUnit/@name"/>
-			</strong>
-			<xsl:text>  | </xsl:text>
-			<xsl:text>HU Author: </xsl:text>
-			<strong>
-				<xsl:value-of select="//hermUnit/@au"/>
-			</strong>
-			<xsl:text>  | </xsl:text>
-			<xsl:text>Creation Date: </xsl:text>
-			<strong>
-				<xsl:value-of select="//hermUnit/@cDate"/>
-			</strong>
-			<xsl:text>  | </xsl:text>
-			<xsl:text>Last Modified: </xsl:text>
-			<strong>
-				<xsl:value-of select="//hermUnit/@mDate"/>
-			</strong>
-		</p>
-		<xsl:if test="$description/howTo">
-			<p>
-				<xsl:text>Instructions: </xsl:text>
-				<xsl:value-of select="$description/howTo"/>
-			</p>
-		</xsl:if>
-		<xsl:if test="$description/comment">
-			<p>
-				<xsl:text>Info: </xsl:text>
-				<xsl:value-of select="$description/comment"/>
-			</p>
-		</xsl:if>
-	</xsl:template>
-	<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-	<xsl:template name="atlasfooter">
-		<xsl:param name="withimage"/>
-		<div id="atlasfooter">
-			<xsl:choose>
-				<xsl:when test="$withimage!='yes'">
-					<p>ATLAS.ti XSL Stylesheet Demo</p>
-				</xsl:when>
-				<xsl:otherwise>
-					<p>
-						<img src="images/ATLAStiLogo2006_mini.gif" align="left" alt="ATLAS.ti XSL Stylesheet Demo" border="0" />
-						<xsl:text>XSL Stylesheet Demo &#169; 2007</xsl:text>
-					</p>
-				</xsl:otherwise>
-			</xsl:choose>
-		</div>
-	</xsl:template>
-	<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+            </xsl:comment>
+        </script>
+    </xsl:template>
+    <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+    <xsl:template name="closeButton">
+        <xsl:param name="id"/>
+        <xsl:param name="position"/>
+        <!-- position close symbol individually in relation to div/td, e.g. above it -->
+        <div class="close">
+            <xsl:attribute name="style">
+                <xsl:text>cursor: hand;</xsl:text>
+                <xsl:if test="$position and $position!=''">
+                    <xsl:value-of select="$position"/>
+                </xsl:if>
+            </xsl:attribute>
+            <xsl:attribute name="onclick">noSection(
+                <xsl:value-of select="$id"/>)
+            </xsl:attribute>
+            <xsl:attribute name="onmousedown">noSection(
+                <xsl:value-of select="$id"/>)
+            </xsl:attribute>
+            <img src="{$imagedir}close_w7_small.png" alt="close" border="0"/>
+        </div>
+    </xsl:template>
+    <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+    <xsl:template name="simplepagefooter">
+        <p>
+            <xsl:text>ATLAS</xsl:text>
+            <span style="color:#f00">.</span>
+            <xsl:text>ti XSL Stylesheet Demo</xsl:text>
+            <xsl:text>: </xsl:text>
+            <strong>
+                <xsl:value-of select="$description/friendlyName"/>
+            </strong>
+            <xsl:text> - </xsl:text>
+            <xsl:value-of select="$description/shortDescription"/>
+        </p>
+        <xsl:if test="$description/author">
+            <p>
+                <xsl:text>Author: </xsl:text>
+                <xsl:value-of select="$description/author/@name"/>
+                <xsl:if test="$description/author/@company and $description/author/@company!=''">
+                    <xsl:text>  | </xsl:text>
+                    <xsl:value-of select="$description/author/@company"/>
+                </xsl:if>
+                <xsl:if test="$description/author/@email and $description/author/@email!=''">
+                    <xsl:text>  | </xsl:text>
+                    <a target="_blank" href="mailto:{$description/author/@email}">
+                        <xsl:value-of select="$description/author/@email"/>
+                    </a>
+                </xsl:if>
+                <xsl:if test="$description/author/@url and $description/author/@url!=''">
+                    <xsl:text>  | </xsl:text>
+                    <a target="_blank" href="{$description/author/@url}">
+                        <xsl:value-of select="$description/author/@url"/>
+                    </a>
+                </xsl:if>
+            </p>
+        </xsl:if>
+        <p>
+            <xsl:text>HU: </xsl:text>
+            <xsl:text>Title: </xsl:text>
+            <strong>
+                <xsl:value-of select="//hermUnit/@name"/>
+            </strong>
+            <xsl:text>  | </xsl:text>
+            <xsl:text>HU Author: </xsl:text>
+            <strong>
+                <xsl:value-of select="//hermUnit/@au"/>
+            </strong>
+            <xsl:text>  | </xsl:text>
+            <xsl:text>Creation Date: </xsl:text>
+            <strong>
+                <xsl:value-of select="//hermUnit/@cDate"/>
+            </strong>
+            <xsl:text>  | </xsl:text>
+            <xsl:text>Last Modified: </xsl:text>
+            <strong>
+                <xsl:value-of select="//hermUnit/@mDate"/>
+            </strong>
+        </p>
+        <xsl:if test="$description/howTo">
+            <p>
+                <xsl:text>Instructions: </xsl:text>
+                <xsl:value-of select="$description/howTo"/>
+            </p>
+        </xsl:if>
+        <xsl:if test="$description/comment">
+            <p>
+                <xsl:text>Info: </xsl:text>
+                <xsl:value-of select="$description/comment"/>
+            </p>
+        </xsl:if>
+    </xsl:template>
+    <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+    <xsl:template name="atlasfooter">
+        <xsl:param name="withimage"/>
+        <div id="atlasfooter">
+            <xsl:choose>
+                <xsl:when test="$withimage!='yes'">
+                    <p>ATLAS.ti XSL Stylesheet Demo</p>
+                </xsl:when>
+                <xsl:otherwise>
+                    <p>
+                        <img src="images/ATLAStiLogo2006_mini.gif" align="left" alt="ATLAS.ti XSL Stylesheet Demo"
+                             border="0"/>
+                        <xsl:text>XSL Stylesheet Demo &#169; 2007</xsl:text>
+                    </p>
+                </xsl:otherwise>
+            </xsl:choose>
+        </div>
+    </xsl:template>
+    <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
 </xsl:stylesheet>
