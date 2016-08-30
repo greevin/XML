@@ -60,13 +60,13 @@
                         <xsl:otherwise>
 
                             <!--Legenda-->
-                            <div class="legenda">
-                                <h2>Legenda:</h2>
-                                <ul class="legenda">
-                                    <li>O que você gostaria de MUDAR na escola está precedido por (-).</li>
-                                    <li>O que você MAIS gosta na escola NÃO está precedido por (-).</li>
-                                </ul>
-                            </div>
+                            <!--<div class="legenda">-->
+                                <!--<h2>Legenda:</h2>-->
+                                <!--<ul class="legenda">-->
+                                    <!--<li>O que você gostaria de MUDAR na escola está precedido por (-).</li>-->
+                                    <!--<li>O que você MAIS gosta na escola NÃO está precedido por (-).</li>-->
+                                <!--</ul>-->
+                            <!--</div>-->
                             <!--FIM-Legenda-->
 
                             <div class="accordion">
@@ -76,31 +76,29 @@
                                         <xsl:sort select="@name" data-type="text" order="ascending"/>
                                         <xsl:variable name="pd_id" select="@id"/>
                                         <xsl:variable name="name" select="@name"/>
-                                        <xsl:variable name="counter" select="position() + 1"/>
 
+                                            <dt class="accordionBreak">
+                                                <a class="accordionTitle" href="#">
+                                                    <!--Nomes e Comentários dos PDs-->
+                                                    <xsl:if test="comment!=''">
+                                                        <xsl:value-of select="comment"/>
+                                                    </xsl:if>
+                                                    <xsl:text>(</xsl:text>
+                                                    <xsl:value-of select="$name"/>
+                                                    <xsl:text>)</xsl:text>
+                                                    <!--FIM-Nomes e Comentários dos PDs-->
+                                                </a>
+                                            </dt>
+                                            <dd class="accordionItem accordionItemCollapsed">
+                                                <!--Conjunto de Informações-->
 
-                                        <dt>
-                                            <a class="accordionTitle" href="#">
-                                                <!--Nomes e Comentários dos PDs-->
-                                                <xsl:if test="comment!=''">
-                                                    <xsl:value-of select="comment"/>
-                                                </xsl:if>
-                                                <xsl:text>(</xsl:text>
-                                                <xsl:value-of select="$name"/>
-                                                <xsl:text>)</xsl:text>
-                                                <!--FIM-Nomes e Comentários dos PDs-->
-                                            </a>
-                                        </dt>
-                                        <dd class="accordionItem accordionItemCollapsed">
-                                            <!--Conjunto de Informações-->
-                                            <div class="tablecontainer">
                                                 <xsl:for-each select="code">
                                                     <xsl:sort select="@quotes" data-type="number" order="descending"/>
-                                                    <table class="printabletable-break">
+                                                    <table class="printabletable">
                                                         <tbody>
                                                             <tr>
                                                                 <!-- code name -->
-                                                                <th class="rowstyle{position() mod 2}">
+                                                                <th>
                                                                     <p>
                                                                         <xsl:value-of select="@name"/>:
                                                                         <xsl:value-of select="@quotes"/> item(ns)
@@ -117,9 +115,9 @@
                                                         </tbody>
                                                     </table>
                                                 </xsl:for-each>
-                                            </div>
-                                            <!--END-Conjunto de Informações-->
-                                        </dd>
+
+                                                <!--END-Conjunto de Informações-->
+                                            </dd>
 
                                     </xsl:for-each>
                                 </dl>

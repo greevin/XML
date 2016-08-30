@@ -1,395 +1,376 @@
-@import url(http://fonts.googleapis.com/css?family=Lato:400,700);
-* {
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Dosis', sans-serif;
-    font-weight: 500;
-    font-size: 12pt;
-}
-
-p,
-li,
-td {
-    font-size: 12pt;
-    font-family: 'Dosis', sans-serif;
-    color: #333;
-}
-
-h1 {
-    font-size: 30pt;
-    text-align: center;
-    color: #1A2431;
-}
-
-h1.title {
-    font-size: 40pt;
-}
-
-h2,
-h3 {
-    font-size: 16pt;
-    color: #1A2431;
-}
-
-
-/*.accordion dl {}*/
-
-.accordion dt a {
-    text-align: left;
-    font-weight: 600;
-    padding: 1em;
-    display: block;
-    text-decoration: none;
-    color: #fff;
-    transition: background-color 0.3s ease-in-out;
-    -webkit-transition: background-color 0.3s ease-in-out;
-}
-
-.accordion dd {
-    -webkit-margin-start: 0px;
-    background-color: #1abc9c;
-    color: #fafafa;
-    font-size: 1em;
-    line-height: 1.5em;
-    width: 100%;
-}
-
-.accordion dd p {
-    padding: 0.5em 1em 0.5em 1em;
-    color: #fff;
-    margin: 0px;
-}
-
-.accordion {
-    position: relative;
-    background-color: #094c3f;
-}
-
-.container {
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 2em 0 2em 0;
-}
-
-.accordionTitle {
-    background-color: #22313F;
-    border-bottom: 1px solid #2c3e50;
-}
-
-.accordionTitle:before {
-    content: "+";
-    font-size: 1.5em;
-    line-height: 0.5em;
-    float: left;
-    padding-right: 1em;
-    -moz-transition: -moz-transform 0.3s ease-in-out;
-    -o-transition: -o-transform 0.3s ease-in-out;
-    -webkit-transition: -webkit-transform 0.3s ease-in-out;
-    transition: transform 0.3s ease-in-out;
-}
-
-.accordionTitle:hover {
-    background-color: #2c3e50;
-}
-
-.accordionTitleActive {
-    background-color: #34495e;
-}
-
-.accordionTitleActive:before {
-    -webkit-transform: rotate(45deg);
-    -moz-transform: rotate(45deg);
-    transform: rotate(45deg);
-}
-
-.accordionItem {
-    overflow: hidden;
-    display: inline-table;
-}
-
-@media all {
-    .accordionItem {
-        max-height: 50em;
-        -moz-transition: max-height 0.5s;
-        -o-transition: max-height 0.5s;
-        -webkit-transition: max-height 0.5s;
-        transition: max-height 0.5s;
+    @import url(http://fonts.googleapis.com/css?family=Dosis:400,700);
+    * {
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
     }
-}
-
-@media screen and (min-width: 48em) {
-    .accordionItem {
-        max-height: 15em;
-        -moz-transition: max-height 0.5s;
-        -o-transition: max-height 0.5s;
-        -webkit-transition: max-height 0.5s;
-        transition: max-height 0.5s;
+    
+    body {
+        font-family: 'Dosis', sans-serif;
+        font-weight: 500;
+        font-size: 12pt;
+        color: #233a7a;
     }
-}
-
-.accordionItemCollapsed {
-    max-height: 0;
-    display: block;
-}
-
-.animateIn {
-    -webkit-animation-name: accordionIn;
-    -webkit-animation-duration: 0.5s;
-    -webkit-animation-iteration-count: 1;
-    -webkit-animation-direction: alternate;
-    -webkit-animation-timing-function: ease-in-out;
-    -webkit-animation-fill-mode: both;
-    -webkit-animation-delay: 0s;
-    -moz-animation-name: accordionIn;
-    -moz-animation-duration: 0.5s;
-    -moz-animation-iteration-count: 1;
-    -moz-animation-direction: alternate;
-    -moz-animation-timing-function: ease-in-out;
-    -moz-animation-fill-mode: both;
-    -moz-animation-delay: 0s;
-    animation-name: accordionIn;
-    animation-duration: 0.5s;
-    animation-iteration-count: 1;
-    animation-direction: alternate;
-    animation-timing-function: ease-in-out;
-    animation-fill-mode: both;
-    animation-delay: 0s;
-}
-
-.animateOut {
-    -webkit-animation-name: accordionOut;
-    -webkit-animation-duration: 0.5s;
-    -webkit-animation-iteration-count: 1;
-    -webkit-animation-direction: alternate;
-    -webkit-animation-timing-function: ease-in-out;
-    -webkit-animation-fill-mode: both;
-    -webkit-animation-delay: 0s;
-    -moz-animation-name: accordionOut;
-    -moz-animation-duration: 0.5s;
-    -moz-animation-iteration-count: 1;
-    -moz-animation-direction: alternate;
-    -moz-animation-timing-function: ease-in-out;
-    -moz-animation-fill-mode: both;
-    -moz-animation-delay: 0s;
-    animation-name: accordionOut;
-    animation-duration: 0.5s;
-    animation-iteration-count: 1;
-    animation-direction: alternate;
-    animation-timing-function: ease-in-out;
-    animation-fill-mode: both;
-    animation-delay: 0s;
-}
-
-@-webkit-keyframes accordionIn {
-    0% {
-        opacity: 0;
-        -webkit-transform: scale(0.8);
+    
+    h1.title {
+        font-size: 40pt;
+        color: #EB2337;
     }
-    100% {
-        opacity: 1;
-        -webkit-transform: scale(1);
+    
+    h1 {
+        font-size: 30pt;
+        text-align: center;
     }
-}
-
-@-moz-keyframes accordionIn {
-    0% {
-        opacity: 0;
-        -moz-transform: scale(0.8);
+    
+    h2,
+    h3 {
+        font-size: 16pt;
     }
-    100% {
-        opacity: 1;
-        -moz-transform: scale(1);
-    }
-}
-
-@keyframes accordionIn {
-    0% {
-        opacity: 0;
-        transform: scale(0.8);
-    }
-    100% {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-@-webkit-keyframes accordionOut {
-    0% {
-        opacity: 1;
-        -webkit-transform: scale(1);
-    }
-    100% {
-        opacity: 0;
-        -webkit-transform: scale(0.8);
-    }
-}
-
-@-moz-keyframes accordionOut {
-    0% {
-        opacity: 1;
-        -moz-transform: scale(1);
-    }
-    100% {
-        opacity: 0;
-        -moz-transform: scale(0.8);
-    }
-}
-
-@keyframes accordionOut {
-    0% {
-        opacity: 1;
-        transform: scale(1);
-    }
-    100% {
-        opacity: 0;
-        transform: scale(0.8);
-    }
-}
-
-
-/*
-ESCOLAS
-*/
-
-div.logo {
-    width: 100%;
-    max-height: 60px;
-    text-align: center;
-    display: inline-flex;
-    align-items: center;
-}
-
-#logo-img {
-    width: 60px;
-    height: 60px;
-}
-
-#logo-text {
-    margin-left: 30px;
-}
-
-div.rowstyle0,
-td.rowstyle0 {
-    background-color: #1abc9c;
-    vertical-align: middle;
-}
-
-div.rowstyle1,
-td.rowstyle1 {
-    background-color: #16a085;
-    vertical-align: middle;
-}
-
-table.printabletable-break,
-table.printabletable-nobreak {
-    width: 100%;
-}
-
-table.printabletable-break th,
-table.printabletable-nobreak th {
-    padding-left: 0em;
-    text-align: left;
-    font-size: 12pt;
-    background: #094c3f;
-}
-
-table.printabletable-break td,
-table.printabletable-nobreak td {
-    padding-left: 1.5em;
-}
-
-div.separador {
-    height: 20px;
-}
-
-div.legenda {
-    padding-left: 6px;
-    padding-top: 0px;
-    padding-bottom: 0px;
-}
-
-th p {
-    font-size: 14pt;
-}
-
-td p {
-    font-size: 12pt;
-}
-
-@media print {
-    body,
-    p {
-        font-size: 10pt;
-    }
+    /* ESCOLAS */
+    
     div.logo {
         width: 100%;
+        max-height: 60px;
+        text-align: center;
+        display: inline-flex;
+        align-items: center;
     }
-    #logo-img img {
-        display: none;
+    
+    #logo-img {
         width: 60px;
         height: 60px;
     }
-    #logo-img:after {
-        content: url(../images/logo_escolas-pb.png);
+    
+    #logo-text {
+        margin-left: 30px;
     }
-    table.printabletable-break {
-        page-break-before: always;
-        page-break-inside: auto;
+    
+    td.rowstyle0 {
+        background-color: #b3ebd8;
+        vertical-align: middle;
+    }
+    
+    td.rowstyle1 {
+        background-color: #e4f8f1;
+        vertical-align: middle;
+    }
+    
+    table.printabletable {
         width: 100%;
     }
-    table.printabletable-nobreak {
-        page-break-before: avoid;
-        page-break-inside: avoid;
+    
+    table.printabletable th {
+        padding-left: 1em;
+        text-align: left;
+        font-weight: 600;
+        background: #fee3e7;
+    }
+    
+    table.printabletable td {
+        padding-left: 2em;
+    }
+    
+    div.legenda {
+        padding-left: 6px;
+        padding-top: 0px;
+        padding-bottom: 0px;
+    }
+    /*.accordion dl {}*/
+    
+    .accordion dt a {
+        text-align: left;
+        font-weight: 700;
+        padding: 1em;
+        display: block;
+        text-decoration: none;
+        color: #233a7a;
+        transition: background-color 0.3s ease-in-out;
+        -webkit-transition: background-color 0.3s ease-in-out;
+    }
+    
+    .accordion dd {
+        -webkit-margin-start: 0px;
+        background-color: white;
         width: 100%;
+        padding: 0em 1em;
     }
-    table.printabletable-break th,
-    table.printabletable-nobreak th {
-        padding-left: 6px;
-        padding-right: 6px;
-        padding-top: 0px;
-        padding-bottom: 0px;
-        font-size: 11pt;
-    }
-    table.printabletable-break td,
-    table.printabletable-nobreak td {
-        padding-left: 6px;
-        padding-right: 6px;
-        padding-top: 0px;
-        padding-bottom: 0px;
-        font-size: 10pt;
-    }
-    th p {
+    
+    .accordion dd p {
+        padding: 0.5em 0em;
         margin: 0px;
-        font-size: 11pt;
     }
-    td p {
-        margin-left: 20px;
-        font-size: 10pt;
+    
+    .accordion {
+        position: relative;
+        background-color: white;
     }
-    div.separador {
-        height: 10px;
+    
+    .container {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 2em 0 2em 0;
     }
-    h1,
-    h2,
-    h3,
-    h4,
-    h5 {
-        page-break-after: avoid;
+    
+    .accordionTitle {
+        background-color: #fff2d2;
+        border: 1px solid #2c3e50;
     }
-    figure {
-        page-break-inside: avoid;
+    
+    .accordionTitle:before {
+        content: "+";
+        font-size: 1.5em;
+        line-height: 0.5em;
+        float: left;
+        padding-right: 0.5em;
+        -moz-transition: -moz-transform 0.3s ease-in-out;
+        -o-transition: -o-transform 0.3s ease-in-out;
+        -webkit-transition: -webkit-transform 0.3s ease-in-out;
+        transition: transform 0.3s ease-in-out;
     }
-    @page {
-        size: letter;
+    
+    .accordionTitle:hover {
+        background-color: #ffd058;
     }
-    @page :first {}
-    @page :blank {
-        @top-center {
-            content: "This page is intentionally left blank."
+    
+    .accordionTitleActive {
+        background-color: #ffd058;
+    }
+    
+    .accordionTitleActive:before {
+        align-content: center;
+        -webkit-transform: rotate(45deg);
+        -moz-transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
+    
+    .accordionItem {
+        overflow: hidden;
+        display: inline-table;
+    }
+    
+    @media all {
+        .accordionItem {
+            max-height: 50em;
+            -moz-transition: max-height 0.5s;
+            -o-transition: max-height 0.5s;
+            -webkit-transition: max-height 0.5s;
+            transition: max-height 0.5s;
         }
     }
-}
+    
+    @media screen and (min-width: 48em) {
+        .accordionItem {
+            max-height: 15em;
+            -moz-transition: max-height 0.5s;
+            -o-transition: max-height 0.5s;
+            -webkit-transition: max-height 0.5s;
+            transition: max-height 0.5s;
+        }
+    }
+    
+    .accordionItemCollapsed {
+        max-height: 0;
+        display: block;
+    }
+    
+    .animateIn {
+        -webkit-animation-name: accordionIn;
+        -webkit-animation-duration: 0.5s;
+        -webkit-animation-iteration-count: 1;
+        -webkit-animation-direction: alternate;
+        -webkit-animation-timing-function: ease-in-out;
+        -webkit-animation-fill-mode: both;
+        -webkit-animation-delay: 0s;
+        -moz-animation-name: accordionIn;
+        -moz-animation-duration: 0.5s;
+        -moz-animation-iteration-count: 1;
+        -moz-animation-direction: alternate;
+        -moz-animation-timing-function: ease-in-out;
+        -moz-animation-fill-mode: both;
+        -moz-animation-delay: 0s;
+        animation-name: accordionIn;
+        animation-duration: 0.5s;
+        animation-iteration-count: 1;
+        animation-direction: alternate;
+        animation-timing-function: ease-in-out;
+        animation-fill-mode: both;
+        animation-delay: 0s;
+    }
+    
+    .animateOut {
+        -webkit-animation-name: accordionOut;
+        -webkit-animation-duration: 0.5s;
+        -webkit-animation-iteration-count: 1;
+        -webkit-animation-direction: alternate;
+        -webkit-animation-timing-function: ease-in-out;
+        -webkit-animation-fill-mode: both;
+        -webkit-animation-delay: 0s;
+        -moz-animation-name: accordionOut;
+        -moz-animation-duration: 0.5s;
+        -moz-animation-iteration-count: 1;
+        -moz-animation-direction: alternate;
+        -moz-animation-timing-function: ease-in-out;
+        -moz-animation-fill-mode: both;
+        -moz-animation-delay: 0s;
+        animation-name: accordionOut;
+        animation-duration: 0.5s;
+        animation-iteration-count: 1;
+        animation-direction: alternate;
+        animation-timing-function: ease-in-out;
+        animation-fill-mode: both;
+        animation-delay: 0s;
+    }
+    
+    @-webkit-keyframes accordionIn {
+        0% {
+            opacity: 0;
+            -webkit-transform: scale(0.8);
+        }
+        100% {
+            opacity: 1;
+            -webkit-transform: scale(1);
+        }
+    }
+    
+    @-moz-keyframes accordionIn {
+        0% {
+            opacity: 0;
+            -moz-transform: scale(0.8);
+        }
+        100% {
+            opacity: 1;
+            -moz-transform: scale(1);
+        }
+    }
+    
+    @keyframes accordionIn {
+        0% {
+            opacity: 0;
+            transform: scale(0.8);
+        }
+        100% {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+    
+    @-webkit-keyframes accordionOut {
+        0% {
+            opacity: 1;
+            -webkit-transform: scale(1);
+        }
+        100% {
+            opacity: 0;
+            -webkit-transform: scale(0.8);
+        }
+    }
+    
+    @-moz-keyframes accordionOut {
+        0% {
+            opacity: 1;
+            -moz-transform: scale(1);
+        }
+        100% {
+            opacity: 0;
+            -moz-transform: scale(0.8);
+        }
+    }
+    
+    @keyframes accordionOut {
+        0% {
+            opacity: 1;
+            transform: scale(1);
+        }
+        100% {
+            opacity: 0;
+            transform: scale(0.8);
+        }
+    }
+    
+    @media print {
+        @page {
+            size: auto;
+            margin: 10mm 10mm 10mm 15mm;
+        }
+        @page :first {}
+        @page :blank {
+            @top-center {
+                content: "This page is intentionally left blank."
+            }
+        }
+        div.logo {
+            width: 100%;
+        }
+        /* Exibe o logo pequeno em P&B */
+        /*
+        #logo-img img {
+            display: none;
+            width: 60px;
+            height: 60px;
+        }
+        #logo-img:after {
+            content: url(../images/logo_escolas-pb.png);
+        }
+        */
+        body,
+        p,
+        a,
+        .accordion dt a {
+            font-size: 10pt;
+            color: black;
+        }
+        h1,
+        h1.title,
+        h2,
+        h3,
+        h4,
+        h5 {
+            color: black;
+            page-break-after: avoid;
+        }
+        .accordion dt a,
+        .accordion dd,
+        table.printabletable th,
+        td.rowstyle0,
+        td.rowstyle1,
+        .accordionTitle:hover,
+        .accordionTitleActive {
+            background-color: white;
+        }
+        table.printabletable {
+            page-break-before: avoid;
+        }
+        .accordionTitle:before {
+            content: "";
+            font-size: 20pt;
+            line-height: auto;
+            float: left;
+        }
+        .accordion dt a {
+            text-align: center;
+            font-weight: 700;
+            padding: 0.5em;
+            page-break-after: avoid !important;
+        }
+        .accordion dd {
+            -webkit-margin-start: 0px;
+            width: 100%;
+            padding: 0em;
+        }
+        .accordion dd p {
+            padding: 0em;
+            margin: 0px;
+        }
+        dt {
+            page-break-before: always;
+            page-break-after: avoid;
+        }
+        dd {
+            page-break-before: avoid;
+            page-break-inside: auto;
+            page-break-after: always;
+        }
+        .accordionItem {
+            display: table;
+        }
+    }
