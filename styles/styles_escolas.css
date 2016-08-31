@@ -295,11 +295,52 @@
         @page :first {}
         @page :blank {
             @top-center {
-                content: "This page is intentionally left blank."
+                content: "Página em branco."
             }
+        }
+        @page: right {
+            @top-right {
+                margin: 10pt 0 30pt 0;
+                border-top: .25pt solid #666;
+                content: counter(page);
+                font-size: 9pt;
+            }
+        }
+        @page: left {
+            @top-left {
+                margin: 10pt 0 30pt 0;
+                border-top: .25pt solid #666;
+                content: counter(page);
+                font-size: 9pt;
+            }
+        }
+        body {
+            counter-reset: pages;
         }
         div.logo {
             width: 100%;
+        }
+        #logo-img img {
+            display: none;
+            width: 600px;
+            height: 602px;
+            align-content: center;
+            vertical-align: middle;
+        }
+        #logo-img:after {
+            content: url(../images/logo_escolas_capa.png);
+            display: inline-block;
+            align-content: center;
+            vertical-align: middle;
+            width: 600px;
+            height: 602px;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            padding-left: 1cm;
+            padding-top: 4cm;
+        }
+        #logo-text {
+            vertical-align: top;
         }
         /* Exibe o logo pequeno em P&B */
         /*
@@ -320,7 +361,6 @@
             color: black;
         }
         h1,
-        h1.title,
         h2,
         h3,
         h4,
@@ -351,11 +391,13 @@
             font-weight: 700;
             padding: 0.5em;
             page-break-after: avoid !important;
+            counter-reset: pages;
         }
         .accordion dd {
             -webkit-margin-start: 0px;
             width: 100%;
             padding: 0em;
+            line-height: auto;
         }
         .accordion dd p {
             padding: 0em;

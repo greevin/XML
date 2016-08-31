@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                version="1.0">
-    <atlas:data
-            xmlns:atlas="urn:www.atlasti.com/xml/001">
+<xsl:stylesheet 
+    xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+    <atlas:data 
+        xmlns:atlas="urn:www.atlasti.com/xml/001">
         <atlasDescription version="2.1">
             <!-- Version of this description syntax -->
             <version number="2.1"/>
@@ -29,16 +29,11 @@
     <xsl:variable name="stylesdir">styles/</xsl:variable>
     <!-- empty for images in the same directory;do not forget end slash for other dirs! -->
     <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-    <xsl:variable name="outputOption">Para este relatório funcionar corretamente, você deve selecionar a opção "Include
-        Primary Documents and Quotations (meta info only).
-    </xsl:variable>
+    <xsl:variable name="outputOption">Para este relatório funcionar corretamente, você deve selecionar a opção "Include        Primary Documents and Quotations (meta info only).    </xsl:variable>
     <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
     <xsl:variable name="warnmessage">
         <div>
-            <p style="style: italic; font-weight: bold; ">O conteúdo completo da citação não pode ser exibido por uma
-                das seguitnes possibildiades: (a) a fonte de informação não é um arquivo de texto; ou (b) o tamanho é
-                muito grande.
-            </p>
+            <p style="style: italic; font-weight: bold; ">O conteúdo completo da citação não pode ser exibido por uma                das seguitnes possibildiades: (a) a fonte de informação não é um arquivo de texto; ou (b) o tamanho é                muito grande.            </p>
         </div>
     </xsl:variable>
     <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
@@ -49,7 +44,6 @@
         </title>
         <link href="https://fonts.googleapis.com/css?family=Dosis" rel="stylesheet"/>
         <link rel="stylesheet" href="{$stylesdir}styles_escolas.css" type="text/css"/>
-
     </xsl:template>
     <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
     <xsl:template name="pagehead_report">
@@ -139,8 +133,8 @@
             <xsl:when test="not(@cDate)">[no date]</xsl:when>
             <xsl:when test="@cDate=''">[date empty]</xsl:when>
             <xsl:otherwise>
-                <xsl:value-of select="substring(@cDate, 6,2)"/>-
-                <xsl:value-of select="substring(@cDate, 9,2)"/>-
+                <xsl:value-of select="substring(@cDate, 6,2)"/>-                
+                <xsl:value-of select="substring(@cDate, 9,2)"/>-                
                 <xsl:value-of select="substring(@cDate, 1,4)"/>
             </xsl:otherwise>
         </xsl:choose>
@@ -179,10 +173,7 @@
     <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
     <xsl:template name="script_expandsection">
         <script type="text/javascript" language="javascript">
-            <xsl:comment>function doSection (secNum){ if (secNum.style.display=="none"){secNum.style.display=""}
-                else{secNum.style.display="none"} } function noSection (secNum){ if
-                (secNum.style.display==""){secNum.style.display="none"} }
-            </xsl:comment>
+            <xsl:comment>function doSection (secNum){ if (secNum.style.display=="none"){secNum.style.display=""} else{secNum.style.display="none"} } function noSection (secNum){ if (secNum.style.display==""){secNum.style.display="none"} }            </xsl:comment>
         </script>
     </xsl:template>
     <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
@@ -194,24 +185,13 @@
     <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
     <xsl:template name="script_switchCSS">
         <script type="text/javascript" language="javascript">
-            <xsl:comment>function switchStyles(src)
-                {document.getElementsByTagName("link")[0].setAttribute('href',src)}
-            </xsl:comment>
+            <xsl:comment>function switchStyles(src)                {document.getElementsByTagName("link")[0].setAttribute('href',src)}            </xsl:comment>
         </script>
     </xsl:template>
     <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
     <xsl:template name="script_drag">
         <script type="text/javascript" language="JavaScript1.2">
-            <xsl:comment>var ie=document.allvar ns6=document.getElementById&amp;&amp;!document.allvar
-                dragapproved=falsevar z,x,yfunction move(e){if (dragapproved){z.style.left=ns6? temp1+e.clientX-x:
-                temp1+event.clientX-xz.style.top=ns6? temp2+e.clientY-y : temp2+event.clientY-yreturn false}}function
-                drags(e){if (!ie&amp;&amp;!ns6)returnvar firedobj=ns6? e.target : event.srcElementvar topelement=ns6?
-                "HTML" : "BODY"while (firedobj.tagName!=topelement&amp;&amp;firedobj.className!="drag"){firedobj=ns6?
-                firedobj.parentNode : firedobj.parentElement}if
-                (firedobj.className=="drag"){dragapproved=truez=firedobjtemp1=parseInt(z.style.left+0)temp2=parseInt(z.style.top+0)x=ns6?
-                e.clientX: event.clientXy=ns6? e.clientY: event.clientYdocument.onmousemove=movereturn
-                false}}document.onmousedown=dragsdocument.onmouseup=new Function("dragapproved=false")//
-            </xsl:comment>
+            <xsl:comment>var ie=document.allvar ns6=document.getElementById&amp;&amp;!document.allvar dragapproved=falsevar z,x,yfunction move(e){if (dragapproved){z.style.left=ns6? temp1+e.clientX-x: temp1+event.clientX-xz.style.top=ns6? temp2+e.clientY-y : temp2+event.clientY-yreturn false}}function                drags(e){if (!ie&amp;&amp;!ns6)returnvar firedobj=ns6? e.target : event.srcElementvar topelement=ns6?                "HTML" : "BODY"while (firedobj.tagName!=topelement&amp;&amp;firedobj.className!="drag"){firedobj=ns6?                firedobj.parentNode : firedobj.parentElement}if (firedobj.className=="drag"){dragapproved=truez=firedobjtemp1=parseInt(z.style.left+0)temp2=parseInt(z.style.top+0)x=ns6?                e.clientX: event.clientXy=ns6? e.clientY: event.clientYdocument.onmousemove=movereturn false}}document.onmousedown=dragsdocument.onmouseup=new Function("dragapproved=false")//            </xsl:comment>
         </script>
     </xsl:template>
     <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
@@ -427,11 +407,11 @@ document.cookie = name+"="+value //cookie value is domain wide (path=/)
                     <xsl:value-of select="$position"/>
                 </xsl:if>
             </xsl:attribute>
-            <xsl:attribute name="onclick">noSection(
-                <xsl:value-of select="$id"/>)
+            <xsl:attribute name="onclick">noSection(                
+                <xsl:value-of select="$id"/>)            
             </xsl:attribute>
-            <xsl:attribute name="onmousedown">noSection(
-                <xsl:value-of select="$id"/>)
+            <xsl:attribute name="onmousedown">noSection(                
+                <xsl:value-of select="$id"/>)            
             </xsl:attribute>
             <img src="{$imagedir}close_w7_small.png" alt="close" border="0"/>
         </div>
@@ -516,8 +496,7 @@ document.cookie = name+"="+value //cookie value is domain wide (path=/)
                 </xsl:when>
                 <xsl:otherwise>
                     <p>
-                        <img src="images/ATLAStiLogo2006_mini.gif" align="left" alt="ATLAS.ti XSL Stylesheet Demo"
-                             border="0"/>
+                        <img src="images/ATLAStiLogo2006_mini.gif" align="left" alt="ATLAS.ti XSL Stylesheet Demo" border="0"/>
                         <xsl:text>XSL Stylesheet Demo &#169; 2007</xsl:text>
                     </p>
                 </xsl:otherwise>
