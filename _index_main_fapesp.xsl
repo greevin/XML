@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet 
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
-    xmlns:exslt="http://exslt.org/common" exclude-result-prefixes="exslt" version="1.0">
+    xmlns:msxsl="urn:schemas-microsoft-com:xslt" exclude-result-prefixes="msxsl" version="1.0">
     <!--<xsl:output method="xml" indent="yes"/>-->
     <atlas:data 
         xmlns:atlas="urn:www.atlasti.com/xml/001">
@@ -373,7 +373,7 @@
         </xsl:for-each>
     </xsl:variable>
     <xsl:variable name="pdsWithCodes">
-        <xsl:for-each select="exslt:node-set($indextree_quotes_per_codes)//pd">
+        <xsl:for-each select="msxsl:node-set($indextree_quotes_per_codes)//pd">
             <xsl:sort select="@id"/>
             <xsl:element name="pd">
                 <xsl:attribute name="id">
@@ -419,7 +419,7 @@
         </xsl:for-each>
     </xsl:variable>
     <!--<xsl:variable name="codeslist">-->
-    <!--<xsl:for-each select="exslt:node-set($indextree_quotes_per_codes)//code">-->
+    <!--<xsl:for-each select="msxsl:node-set($indextree_quotes_per_codes)//code">-->
     <!--<xsl:sort select="@id"/>-->
     <!--<xsl:copy-of select="."/>-->
     <!--</xsl:for-each>-->

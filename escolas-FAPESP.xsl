@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet 
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
-    xmlns:exslt="http://exslt.org/common" exclude-result-prefixes="exslt" version="1.0">
+    xmlns:msxsl="urn:schemas-microsoft-com:xslt" exclude-result-prefixes="msxsl" version="1.0">
     <xsl:output method="xml" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd" doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN" omit-xml-declaration="yes" indent="yes"/>
     <xsl:variable name="maxquotesize">10000</xsl:variable>
     <xsl:variable name="description" select="document('')//atlasDescription"/>
@@ -22,7 +22,7 @@
             <requiredData>
                 <required>codes</required>
                 <required>pds</required>
-                <required>quotations_full</required>
+                <!--<required>quotations_full</required>-->
             </requiredData>
             <complexity>medium</complexity>
             <!-- Computational complexity -->
@@ -48,7 +48,7 @@
                     <xsl:call-template name="pagehead_report"/>
                     <xsl:choose>
                         <!-- warning message -->
-                        <xsl:when test="not(exslt:node-set($uniquelist_codes)//content)">
+                        <xsl:when test="not(msxsl:node-set($pdsWithCodes)//pd)">
                             <div id="wrap" class="centered_report">
                                 <p>
                                     <xsl:value-of select="$outputOption"/>
@@ -69,7 +69,7 @@
                             <div class="accordion">
                                 <dl>
                                     <!-- Lógica principal -->
-                                    <xsl:for-each select="exslt:node-set($pdsWithCodes)/pd">
+                                    <xsl:for-each select="msxsl:node-set($pdsWithCodes)/pd">
                                         <xsl:sort select="@name" data-type="text" order="ascending"/>
                                         <xsl:variable name="pd_id" select="@id"/>
                                         <xsl:variable name="name" select="@name"/>

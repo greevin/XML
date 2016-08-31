@@ -41,6 +41,8 @@
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type"></meta>
         <title>
             <xsl:value-of select="$description/friendlyName"/>
+            <xsl:text> - </xsl:text>
+            <xsl:value-of select="//hermUnit/comment/*"/>
         </title>
         <link href="https://fonts.googleapis.com/css?family=Dosis" rel="stylesheet"/>
         <link rel="stylesheet" href="{$stylesdir}styles_escolas.css" type="text/css"/>
@@ -55,6 +57,10 @@
                 <h1 class="title">
                     <xsl:value-of select="$description/friendlyName"/>
                 </h1>
+                <br></br>
+                <h2 class="title">
+                    <xsl:value-of select="//hermUnit/comment/*"/>
+                </h2>
             </div>
         </div>
     </xsl:template>
@@ -133,8 +139,8 @@
             <xsl:when test="not(@cDate)">[no date]</xsl:when>
             <xsl:when test="@cDate=''">[date empty]</xsl:when>
             <xsl:otherwise>
-                <xsl:value-of select="substring(@cDate, 6,2)"/>-                
-                <xsl:value-of select="substring(@cDate, 9,2)"/>-                
+                <xsl:value-of select="substring(@cDate, 6,2)"/>-                                
+                <xsl:value-of select="substring(@cDate, 9,2)"/>-                                
                 <xsl:value-of select="substring(@cDate, 1,4)"/>
             </xsl:otherwise>
         </xsl:choose>
@@ -407,11 +413,11 @@ document.cookie = name+"="+value //cookie value is domain wide (path=/)
                     <xsl:value-of select="$position"/>
                 </xsl:if>
             </xsl:attribute>
-            <xsl:attribute name="onclick">noSection(                
-                <xsl:value-of select="$id"/>)            
+            <xsl:attribute name="onclick">noSection(                                
+                <xsl:value-of select="$id"/>)                        
             </xsl:attribute>
-            <xsl:attribute name="onmousedown">noSection(                
-                <xsl:value-of select="$id"/>)            
+            <xsl:attribute name="onmousedown">noSection(                                
+                <xsl:value-of select="$id"/>)                        
             </xsl:attribute>
             <img src="{$imagedir}close_w7_small.png" alt="close" border="0"/>
         </div>
