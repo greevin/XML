@@ -295,10 +295,6 @@
             size: auto;
             margin: 2cm;
         }
-        body
-{
-    margin: 0px 0px 0px 0px; 
-}
         div.logo {
             width: 100%;
             display: block;
@@ -359,9 +355,9 @@
         .accordionTitleActive {
             background-color: white;
         }
-        div.accordion {
+        /*div.accordion {
             page-break-before: always;
-        }
+        }*/
         table.printabletable {
             page-break-before: avoid;
         }
