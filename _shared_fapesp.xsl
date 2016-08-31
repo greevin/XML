@@ -55,6 +55,10 @@
                 <h1 class="title">
                     <xsl:value-of select="$description/friendlyName"/>
                 </h1>
+                <br></br>
+                <h2 class="title">
+                    <xsl:value-of select="//hermUnit/comment/*"/>
+                </h2>
             </div>
         </div>
     </xsl:template>

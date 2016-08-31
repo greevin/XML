@@ -22,7 +22,7 @@
             <requiredData>
                 <required>codes</required>
                 <required>pds</required>
-                <required>quotations_full</required>
+                <!--<required>quotations_full</required>-->
             </requiredData>
             <complexity>medium</complexity>
             <!-- Computational complexity -->
@@ -48,7 +48,7 @@
                     <xsl:call-template name="pagehead_report"/>
                     <xsl:choose>
                         <!-- warning message -->
-                        <xsl:when test="not(exslt:node-set($uniquelist_codes)//content)">
+                        <xsl:when test="not(exslt:node-set($pdsWithCodes)//pd)">
                             <div id="wrap" class="centered_report">
                                 <p>
                                     <xsl:value-of select="$outputOption"/>
