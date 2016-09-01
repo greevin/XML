@@ -26,12 +26,13 @@
     }
     
     #logo-img {
+        margin: auto;
         width: 150px;
         height: 150px;
     }
     
     #logo-text {
-        margin-left: 30px;
+        margin: auto;
     }
     
     h1.title {
@@ -297,39 +298,49 @@
         }
         div.logo {
             width: 100%;
-            display: block;
-        }
-        #logo-img img {
-            display: none;
-            width: 150px;
-            height: 150px;
-            /*align-content: center;
-            vertical-align: middle;*/
-        }
-        #logo-img:after {
-            content: url(../images/logo_escolas_capa.png);
-            display: inline-block;
+            height: 23cm;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             align-content: center;
-            vertical-align: middle;
-            width: 150px;
-            height: 150px;
-            -moz-box-sizing: border-box;
-            box-sizing: border-box;
-            padding-left: 0.5cm;
-            padding-top: 3cm;
+            flex-direction: column;
+            flex-wrap: wrap;
+            /*border: 3px solid green;*/
         }
-        #logo-text {
-            margin-left: 0px;
-            position: absolute;
-            top: 1cm;
-            left: 2cm;
+        div#logo-img {
+            display: flex;
+            width: 300px;
+            height: 300px;
+            /*border: 3px solid orange;*/
+        }
+        div#logo-img img {
+            display: none;
+            width: 300px;
+            height: 300px;
+            /*border: 3px solid deeppink;*/
+        }
+        div#logo-img:after {
+            content: url(../images/logo_escolas_capa.png);
+            display: block;
+            width: 300px;
+            height: 300px;
+            /*border: 3px solid red;*/
+        }
+        div#logo-text {
+            display: flex;
+            align-items: center;
+            align-content: center;
+            justify-content: center;
+            flex-direction: column;
+            flex-wrap: wrap;
+            /*border: 3px solid blue;*/
         }
         h1.title {
-            position: relative;
+            /*border: 3px solid cadetblue;*/
         }
         h2.title {
-            position: relative;
-            top: 18cm;
+            margin-top: 1cm;
+            /*border: 3px solid limegreen;*/
         }
         body,
         p,

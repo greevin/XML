@@ -13,7 +13,7 @@
             <!-- Version of this description syntax -->
             <version number="2.1"/>
             <!-- version of this stylesheet -->
-            <friendlyName>Relatório Projeto CEAP</friendlyName>
+            <friendlyName>Relatório do Projeto CEAP</friendlyName>
             <!-- To be displayed in ATLAS.ti -->
             <shortDescription>Relatório com os Codes ordenados pela frequência no PD.</shortDescription>
             <comment></comment>
