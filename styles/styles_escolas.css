@@ -37,14 +37,14 @@
     
     h1.title {
         font-size: 40pt;
-        color: #EB2337;
+        color: #233a7a;
         text-align: center;
         margin: 0px;
     }
     
     h2.title {
         font-size: 30pt;
-        color: #EB2337;
+        color: #233a7a;
         text-align: center;
         margin: 0px;
     }
@@ -64,14 +64,14 @@
     }
     
     table.printabletable th {
-        padding-left: 1em;
+        padding: 0 0 0 1em;
         text-align: left;
         font-weight: 600;
         background: #fee3e7;
     }
     
     table.printabletable td {
-        padding-left: 2em;
+        padding: 0 0 0 1.5em;
     }
     
     div.legenda {
@@ -122,14 +122,15 @@
     
     .accordionTitle:before {
         content: "+";
-        font-size: 1.5em;
-        line-height: 0.5em;
+        font-size: 2em;
+        line-height: 0.4em;
         float: left;
         padding-right: 0.5em;
         -moz-transition: -moz-transform 0.3s ease-in-out;
         -o-transition: -o-transform 0.3s ease-in-out;
         -webkit-transition: -webkit-transform 0.3s ease-in-out;
         transition: transform 0.3s ease-in-out;
+        transform-origin: 25% 80% 0px;
     }
     
     .accordionTitle:hover {
@@ -145,6 +146,7 @@
         -webkit-transform: rotate(45deg);
         -moz-transform: rotate(45deg);
         transform: rotate(45deg);
+        transform-origin: 25% 80% 0px;
     }
     
     .accordionItem {
@@ -337,10 +339,12 @@
         }
         h1.title {
             /*border: 3px solid cadetblue;*/
+            font-weight: 500;
         }
         h2.title {
             margin-top: 1cm;
             /*border: 3px solid limegreen;*/
+            font-weight: 500;
         }
         body,
         p,
@@ -357,6 +361,9 @@
             color: black;
             page-break-after: avoid;
         }
+        .accordionTitle {
+            border: 0;
+        }
         .accordion dt a,
         .accordion dd,
         table.printabletable th,
@@ -371,6 +378,8 @@
         }*/
         table.printabletable {
             page-break-before: avoid;
+            border: none;
+            border-collapse: collapse;
         }
         .accordionTitle:before {
             content: "";
@@ -383,6 +392,7 @@
             font-weight: 700;
             padding: 0.5em;
             page-break-after: avoid !important;
+            font-size: 16px;
         }
         .accordion dd {
             -webkit-margin-start: 0px;
@@ -391,8 +401,10 @@
             line-height: auto;
         }
         .accordion dd p {
-            padding: 0em;
+            padding: 0.5em 0em;
             margin: 0px;
+            border-left: 1px solid #000;
+            padding-left: 10px;
         }
         dt {
             page-break-before: always;
@@ -405,5 +417,13 @@
         }
         .accordionItem {
             display: table;
+        }
+        th {
+            border-bottom: 1px solid #000;
+        }
+        .printabletable tbody th p {
+            border-left: 0;
+            /*padding-left: 0;*/
+            margin-left: -22px;
         }
     }

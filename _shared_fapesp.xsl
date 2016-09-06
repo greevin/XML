@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet 
-    xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+    xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="2.0">
     <atlas:data 
         xmlns:atlas="urn:www.atlasti.com/xml/001">
         <atlasDescription version="2.1">
@@ -41,8 +41,6 @@
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type"></meta>
         <title>
             <xsl:value-of select="$description/friendlyName"/>
-            <xsl:text> - </xsl:text>
-            <xsl:value-of select="//hermUnit/comment/*"/>
         </title>
         <link href="https://fonts.googleapis.com/css?family=Dosis" rel="stylesheet"/>
         <link rel="stylesheet" href="{$stylesdir}styles_escolas.css" type="text/css"/>
@@ -57,10 +55,6 @@
                 <h1 class="title">
                     <xsl:value-of select="$description/friendlyName"/>
                 </h1>
-                <br></br>
-                <h2 class="title">
-                    <xsl:value-of select="//hermUnit/comment/*"/>
-                </h2>
             </div>
         </div>
     </xsl:template>
