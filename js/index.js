@@ -1,99 +1,63 @@
-/*!
- * classie - class helper functions
- * from bonzo https://github.com/ded/bonzo
-/*!
- * classie - class helper functions
- * from bonzo https://github.com/ded/bonzo
- * 
- * classie.has( elem, 'my-class' ) -> true/false
- * classie.add( elem, 'my-new-class' )
- * classie.remove( elem, 'my-unwanted-class' )
- * classie.toggle( elem, 'my-class' )
- */
+// REF: https://codepen.io/chriswrightdesign/pen/cmanI
+// uses classList, setAttribute, and querySelectorAll
+// if you want this to work in IE8/9 youll need to polyfill these
 
-/*jshint browser: true, strict: true, undef: true */
-/*global define: false */
-(function(window) {
-    'use strict';
+(function() {
+    var d = document,
+        accordionToggles = d.querySelectorAll('.js-accordionTrigger'),
+        setAria,
+        setAccordionAria,
+        switchAccordion,
+        touchSupported = ('ontouchstart' in window),
+        pointerSupported = ('pointerdown' in window)
 
-    function classReg(className) {
-        return new RegExp("(^|\\s+)" + className + "(\\s+|$)");
-    }
-    var hasClass, addClass, removeClass;
-
-    if ('classList' in document.documentElement) {
-        hasClass = function(elem, c) {
-            return elem.classList.contains(c);
-        };
-        addClass = function(elem, c) {
-            elem.classList.add(c);
-        };
-        removeClass = function(elem, c) {
-            elem.classList.remove(c);
-        };
-    } else {
-        hasClass = function(elem, c) {
-            return classReg(c).test(elem.className);
-        };
-        addClass = function(elem, c) {
-            if (!hasClass(elem, c)) {
-                elem.className = elem.className + ' ' + c;
-            }
-        };
-        removeClass = function(elem, c) {
-            elem.className = elem.className.replace(classReg(c), ' ');
-        };
+    skipClickDelay = function(e) {
+        e.preventDefault()
+        e.target.click()
     }
 
-    function toggleClass(elem, c) {
-        var fn = hasClass(elem, c) ? removeClass : addClass;
-        fn(elem, c);
+    setAriaAttr = function(el, ariaType, newProperty) {
+        el.setAttribute(ariaType, newProperty)
     }
-    var classie = {
-        hasClass: hasClass,
-        addClass: addClass,
-        removeClass: removeClass,
-        toggleClass: toggleClass,
-        has: hasClass,
-        add: addClass,
-        remove: removeClass,
-        toggle: toggleClass
-    };
-    if (typeof define === 'function' && define.amd) {
-        define(classie);
-    } else {
-        window.classie = classie;
-    }
-})(window);
-var $ = function(selector) {
-    'use strict';
-    return document.querySelector(selector);
-}
-var accordion = $('.accordion');
-accordion.addEventListener("click", function(e) {
-    'use strict';
-    e.stopPropagation();
-    e.preventDefault();
-    if (e.target && e.target.nodeName == "A") {
-        var classes = e.target.className.split(" ");
-        if (classes) {
-            for (var x = 0; x < classes.length; x++) {
-                if (classes[x] == "accordionTitle") {
-                    var title = e.target;
-                    var content = e.target.parentNode.nextElementSibling;
-                    classie.toggle(title, 'accordionTitleActive');
-                    if (classie.has(content, 'accordionItemCollapsed')) {
-                        if (classie.has(content, 'animateOut')) {
-                            classie.remove(content, 'animateOut');
-                        }
-                        classie.add(content, 'animateIn');
-                    } else {
-                        classie.remove(content, 'animateIn');
-                        classie.add(content, 'animateOut');
-                    }
-                    classie.toggle(content, 'accordionItemCollapsed');
-                }
+    setAccordionAria = function(el1, el2, expanded) {
+            switch (expanded) {
+                case 'true':
+                    setAriaAttr(el1, 'aria-expanded', 'true')
+                    setAriaAttr(el2, 'aria-hidden', 'false')
+                    break
+                case 'false':
+                    setAriaAttr(el1, 'aria-expanded', 'false')
+                    setAriaAttr(el2, 'aria-hidden', 'true')
+                    break
+                default:
+                    break
             }
         }
+        // function
+    switchAccordion = function(e) {
+        console.log('triggered')
+        e.preventDefault()
+        var thisAnswer = e.target.parentNode.nextElementSibling
+        var thisQuestion = e.target
+        if (thisAnswer.classList.contains('is-collapsed')) {
+            setAccordionAria(thisQuestion, thisAnswer, 'true')
+        } else {
+            setAccordionAria(thisQuestion, thisAnswer, 'false')
+        }
+        thisQuestion.classList.toggle('is-collapsed')
+        thisQuestion.classList.toggle('is-expanded')
+        thisAnswer.classList.toggle('is-collapsed')
+        thisAnswer.classList.toggle('is-expanded')
+
+        thisAnswer.classList.toggle('animateIn')
     }
-});
+    for (var i = 0, len = accordionToggles.length; i < len; i++) {
+        if (touchSupported) {
+            accordionToggles[i].addEventListener('touchstart', skipClickDelay, false)
+        }
+        if (pointerSupported) {
+            accordionToggles[i].addEventListener('pointerdown', skipClickDelay, false)
+        }
+        accordionToggles[i].addEventListener('click', switchAccordion, false)
+    }
+})();
