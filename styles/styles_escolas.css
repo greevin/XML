@@ -2,7 +2,7 @@
  REF: https://codepen.io/chriswrightdesign/pen/cmanI
 */
 
-@import url(http://fonts.googleapis.com/css?family=Dosis:400,700);
+@import url(http://fonts.googleapis.com/css?family=Dosis:300,500);
 * {
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -10,16 +10,16 @@
 }
 
 body {
-    font-family: 'Dosis', sans-serif;
-    font-weight: 500;
+    font-family: Dosis, sans-serif;
+    font-weight: 300;
     font-size: 12pt;
     color: #233a7a;
 }
 
 h1,
-h2,
-h3 {
+h2 {
     font-size: 16pt;
+    font-weight: 500;
 }
 
 div.logo {
@@ -39,18 +39,27 @@ div.logo {
     margin: auto;
 }
 
-h1.title {
-    font-size: 40pt;
-    color: #233a7a;
+h1.title,
+h2.title {
     text-align: center;
-    margin: 0px;
+    margin: 0;
+    color: #233a7a
+}
+
+h1.title {
+    font-size: 40pt
 }
 
 h2.title {
-    font-size: 30pt;
-    color: #233a7a;
-    text-align: center;
-    margin: 0px;
+    font-size: 30pt
+}
+
+thead p {
+    font-weight: 500;
+}
+
+tbody p {
+    font-weight: 300;
 }
 
 td.rowStyle0 {
@@ -70,9 +79,9 @@ table.printableTable {
 }
 
 table.printableTable th {
-    padding: 0 0 0 1em;
+    padding: 0 0 0 .5em;
     text-align: left;
-    font-weight: 600;
+    font-weight: 500;
     background: #fee3e7;
 }
 
@@ -80,20 +89,12 @@ table.printableTable td {
     padding: 0 1.0em 0 1.5em;
 }
 
-div.legenda {
-    padding-left: 6px;
-    padding-top: 0px;
-    padding-bottom: 0px;
-}
-
 .botao {
     color: #233a7a;
     font-size: 1.5em;
-    padding: 0.2em;
-    padding-left: 1em;
-    padding-right: 1em;
+    padding: .2em 1em;
     background: #fff2d2;
-    border: solid #1f628d 1px;
+    border: 1px solid #1f628d;
     text-decoration: none;
 }
 
@@ -114,33 +115,20 @@ div.legenda {
     text-align: center;
 }
 
-.accordion dl,
-.accordion-list {
+.accordion dl {
     /*border: 1px solid #ddd;*/
 }
 
-
-/*.accordion dl:after,
-.accordion-list:after {
-    content: "";
-    display: block;
-    height: 1em;
-    width: 100%;
-    background-color: #ffd058;
-}*/
-
-.accordion dd,
-.accordion__panel {
+.accordion dd {
     background-color: #fff;
     font-size: 1em;
 }
 
 .accordion p {
-    /* padding: 1em 2em 1em 2em; */
-    -webkit-margin-before: 0.5em;
-    -webkit-margin-after: 0.5em;
-    -webkit-margin-start: 0px;
-    -webkit-margin-end: 0px;
+    -webkit-margin-before: .5em;
+    -webkit-margin-after: .5em;
+    -webkit-margin-start: 0;
+    -webkit-margin-end: 0;
 }
 
 .accordion {
@@ -151,42 +139,39 @@ div.legenda {
 .container {
     max-width: 960px;
     margin: 0 auto;
-    padding: 2em 0 2em 0;
+    padding: 2em 0;
 }
 
-.accordionTitle,
-.accordion__Heading {
+.accordionTitle {
     background-color: #fff2d2;
     text-align: left;
-    font-weight: 700;
+    font-weight: 500;
     padding: 1em;
     display: block;
     text-decoration: none;
     color: #233a7a;
-    -webkit-transition: background-color 0.5s ease-in-out;
-    transition: background-color 0.5s ease-in-out;
+    -webkit-transition: background-color .5s ease-in-out;
+    transition: background-color .5s ease-in-out;
     border-left: 1px solid #2c3e50;
     border-right: 1px solid #2c3e50;
-    border-top: 0.5px solid #2c3e50;
-    border-bottom: 0.5px solid #2c3e50;
+    border-top: .5px solid #2c3e50;
+    border-bottom: .5px solid #2c3e50;
 }
 
-.accordionTitle:before,
-.accordion__Heading:before {
+.accordionTitle:before {
     content: "+";
     font-size: 2em;
-    line-height: 0.5em;
+    line-height: .5em;
     padding-right: 1em;
     float: left;
-    -webkit-transition: -webkit-transform 0.3s ease-in-out;
-    transition: -webkit-transform 0.3s ease-in-out;
-    transition: transform 0.3s ease-in-out;
-    transition: transform 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out;
+    -webkit-transition: -webkit-transform .3s ease-in-out;
+    transition: -webkit-transform .3s ease-in-out;
+    transition: transform .3s ease-in-out;
+    transition: transform .3s ease-in-out, -webkit-transform .3s ease-in-out;
     transform-origin: 15% 80% 0px;
 }
 
-.accordionTitle:hover,
-.accordion__Heading:hover {
+.accordionTitle:hover {
     background-color: #ffd058;
 }
 
@@ -204,17 +189,14 @@ div.legenda {
 .accordionItem {
     height: auto;
     overflow: hidden;
-    /*max-height: 50em;*/
     -webkit-transition: max-height 1s;
     transition: max-height 1s;
-    /*display: inline-table;*/
 }
 
-@media screen and (min-width: 48em) {
+@media screen and (min-width:48em) {
     .accordionItem {
-        /*max-height: 15em;*/
-        -webkit-transition: max-height 0.5s;
-        transition: max-height 0.5s;
+        -webkit-transition: max-height .5s;
+        transition: max-height .5s;
     }
 }
 
@@ -227,20 +209,20 @@ div.legenda {
 }
 
 .animateIn {
-    -webkit-animation: accordionIn 0.45s normal ease-in-out both 1;
-    animation: accordionIn 0.45s normal ease-in-out both 1;
+    -webkit-animation: accordionIn .45s normal ease-in-out both 1;
+    animation: accordionIn .45s normal ease-in-out both 1;
 }
 
 .animateOut {
-    -webkit-animation: accordionOut 0.45s alternate ease-in-out both 1;
-    animation: accordionOut 0.45s alternate ease-in-out both 1;
+    -webkit-animation: accordionOut .45s alternate ease-in-out both 1;
+    animation: accordionOut .45s alternate ease-in-out both 1;
 }
 
 @-webkit-keyframes accordionIn {
     0% {
         opacity: 0;
-        -webkit-transform: scale(0.9) rotateX(-60deg);
-        transform: scale(0.9) rotateX(-60deg);
+        -webkit-transform: scale(.9) rotateX(-60deg);
+        transform: scale(.9) rotateX(-60deg);
         -webkit-transform-origin: 50% 0;
         transform-origin: 50% 0;
     }
@@ -254,8 +236,8 @@ div.legenda {
 @keyframes accordionIn {
     0% {
         opacity: 0;
-        -webkit-transform: scale(0.9) rotateX(-60deg);
-        transform: scale(0.9) rotateX(-60deg);
+        -webkit-transform: scale(.9) rotateX(-60deg);
+        transform: scale(.9) rotateX(-60deg);
         -webkit-transform-origin: 50% 0;
         transform-origin: 50% 0;
     }
@@ -274,8 +256,8 @@ div.legenda {
     }
     100% {
         opacity: 0;
-        -webkit-transform: scale(0.9) rotateX(-60deg);
-        transform: scale(0.9) rotateX(-60deg);
+        -webkit-transform: scale(.9) rotateX(-60deg);
+        transform: scale(.9) rotateX(-60deg);
     }
 }
 
@@ -287,225 +269,10 @@ div.legenda {
     }
     100% {
         opacity: 0;
-        -webkit-transform: scale(0.9) rotateX(-60deg);
-        transform: scale(0.9) rotateX(-60deg);
+        -webkit-transform: scale(.9) rotateX(-60deg);
+        transform: scale(.9) rotateX(-60deg);
     }
 }
-
-
-/*.accordion dl {}
-
-.accordion dt a {
-    text-align: left;
-    font-weight: 700;
-    padding: 1em;
-    display: block;
-    text-decoration: none;
-    color: #233a7a;
-    transition: background-color 0.3s ease-in-out;
-    -webkit-transition: background-color 0.3s ease-in-out;
-}
-
-.accordion dd {
-    -webkit-margin-start: 0px;
-    background-color: white;
-    width: 100%;
-    padding: 0em 1em;
-}
-
-.accordion dd p {
-    padding: 0.5em 0em;
-    margin: 0px;
-}
-
-.accordion {
-    position: relative;
-    background-color: white;
-}
-
-.container {
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 2em 0 2em 0;
-}
-
-.accordionTitle {
-    background-color: #fff2d2;
-    border: 1px solid #2c3e50;
-}
-
-.accordionTitle:before {
-    content: "+";
-    font-size: 2em;
-    line-height: 0.4em;
-    float: left;
-    padding-right: 0.5em;
-    -moz-transition: -moz-transform 0.3s ease-in-out;
-    -o-transition: -o-transform 0.3s ease-in-out;
-    -webkit-transition: -webkit-transform 0.3s ease-in-out;
-    transition: transform 0.3s ease-in-out;
-    transform-origin: 25% 80% 0px;
-}
-
-.accordionTitle:hover {
-    background-color: #ffd058;
-}
-
-.accordionTitleActive {
-    background-color: #ffd058;
-}
-
-.accordionTitleActive:before {
-    align-content: center;
-    -webkit-transform: rotate(45deg);
-    -moz-transform: rotate(45deg);
-    transform: rotate(45deg);
-    transform-origin: 25% 80% 0px;
-}
-
-.accordionItem {
-    overflow: hidden;
-    display: inline-table;
-}
-
-@media all {
-    .accordionItem {
-        max-height: 50em;
-        -moz-transition: max-height 0.5s;
-        -o-transition: max-height 0.5s;
-        -webkit-transition: max-height 0.5s;
-        transition: max-height 0.5s;
-    }
-}
-
-@media screen and (min-width: 48em) {
-    .accordionItem {
-        max-height: 15em;
-        -moz-transition: max-height 0.5s;
-        -o-transition: max-height 0.5s;
-        -webkit-transition: max-height 0.5s;
-        transition: max-height 0.5s;
-    }
-}
-
-.accordionItemCollapsed {
-    max-height: 0;
-    display: block;
-}
-
-.animateIn {
-    -webkit-animation-name: accordionIn;
-    -webkit-animation-duration: 0.5s;
-    -webkit-animation-iteration-count: 1;
-    -webkit-animation-direction: alternate;
-    -webkit-animation-timing-function: ease-in-out;
-    -webkit-animation-fill-mode: both;
-    -webkit-animation-delay: 0s;
-    -moz-animation-name: accordionIn;
-    -moz-animation-duration: 0.5s;
-    -moz-animation-iteration-count: 1;
-    -moz-animation-direction: alternate;
-    -moz-animation-timing-function: ease-in-out;
-    -moz-animation-fill-mode: both;
-    -moz-animation-delay: 0s;
-    animation-name: accordionIn;
-    animation-duration: 0.5s;
-    animation-iteration-count: 1;
-    animation-direction: alternate;
-    animation-timing-function: ease-in-out;
-    animation-fill-mode: both;
-    animation-delay: 0s;
-}
-
-.animateOut {
-    -webkit-animation-name: accordionOut;
-    -webkit-animation-duration: 0.5s;
-    -webkit-animation-iteration-count: 1;
-    -webkit-animation-direction: alternate;
-    -webkit-animation-timing-function: ease-in-out;
-    -webkit-animation-fill-mode: both;
-    -webkit-animation-delay: 0s;
-    -moz-animation-name: accordionOut;
-    -moz-animation-duration: 0.5s;
-    -moz-animation-iteration-count: 1;
-    -moz-animation-direction: alternate;
-    -moz-animation-timing-function: ease-in-out;
-    -moz-animation-fill-mode: both;
-    -moz-animation-delay: 0s;
-    animation-name: accordionOut;
-    animation-duration: 0.5s;
-    animation-iteration-count: 1;
-    animation-direction: alternate;
-    animation-timing-function: ease-in-out;
-    animation-fill-mode: both;
-    animation-delay: 0s;
-}
-
-@-webkit-keyframes accordionIn {
-    0% {
-        opacity: 0;
-        -webkit-transform: scale(0.8);
-    }
-    100% {
-        opacity: 1;
-        -webkit-transform: scale(1);
-    }
-}
-
-@-moz-keyframes accordionIn {
-    0% {
-        opacity: 0;
-        -moz-transform: scale(0.8);
-    }
-    100% {
-        opacity: 1;
-        -moz-transform: scale(1);
-    }
-}
-
-@keyframes accordionIn {
-    0% {
-        opacity: 0;
-        transform: scale(0.8);
-    }
-    100% {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-@-webkit-keyframes accordionOut {
-    0% {
-        opacity: 1;
-        -webkit-transform: scale(1);
-    }
-    100% {
-        opacity: 0;
-        -webkit-transform: scale(0.8);
-    }
-}
-
-@-moz-keyframes accordionOut {
-    0% {
-        opacity: 1;
-        -moz-transform: scale(1);
-    }
-    100% {
-        opacity: 0;
-        -moz-transform: scale(0.8);
-    }
-}
-
-@keyframes accordionOut {
-    0% {
-        opacity: 1;
-        transform: scale(1);
-    }
-    100% {
-        opacity: 0;
-        transform: scale(0.8);
-    }
-}*/
 
 @media print {
     @page {
@@ -553,26 +320,25 @@ div.legenda {
     }
     h1.title {
         /*border: 3px solid cadetblue;*/
-        font-weight: 500;
+        /*font-weight: 500;*/
     }
     h2.title {
         margin-top: 1cm;
         /*border: 3px solid limegreen;*/
-        font-weight: 500;
+        /*font-weight: 500;*/
     }
-    body,
-    p,
+    .accordion dt a,
     a,
-    .accordion dt a {
+    body,
+    p {
+        /*font-weight: 300;*/
         font-size: 10pt;
-        color: black;
+        color: #000;
     }
     h1,
-    h2,
-    h3,
-    h4,
-    h5 {
-        color: black;
+    h2 {
+        color: #000;
+        font-weight: 500;
         page-break-after: avoid;
     }
     h1.heading-primary {
@@ -581,22 +347,21 @@ div.legenda {
     .accordionTitle {
         border: 0;
     }
-    .accordion dt a,
     .accordion dd,
+    .accordion dt a,
+    .accordionTitle:hover,
     table.printableTable th,
     td.rowStyle0,
-    td.rowStyle1,
-    .accordionTitle:hover,
-    .accordionTitleActive {
-        background-color: white;
+    td.rowStyle1 {
+        background-color: #fff;
     }
-    /*div.accordion {
-            page-break-before: always;
-        }*/
     table.printableTable {
         page-break-before: avoid;
         border: none;
         border-collapse: collapse;
+    }
+    table.printableTable th {
+        padding: 0;
     }
     .accordionTitle:before {
         content: "";
@@ -606,8 +371,8 @@ div.legenda {
     }
     .accordion dt a {
         text-align: center;
-        font-weight: 700;
-        padding: 0.5em;
+        font-weight: 500;
+        padding: .5em;
         page-break-after: avoid !important;
         font-size: 16px;
     }
@@ -617,13 +382,17 @@ div.legenda {
         padding: 0em;
         line-height: auto;
     }
-    .accordion dd p {
-        padding: 0.5em 0em;
+    .accordion dd tbody p {
+        padding: .5em 0em;
         margin: 0px;
-        padding-left: 10px;
+        padding-left: .5em;
+    }
+    thead p {
+        font-weight: 500;
     }
     tbody p {
         border-left: 1px solid #000;
+        font-weight: 300;
     }
     dt {
         page-break-before: always;
