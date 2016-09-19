@@ -90,6 +90,13 @@
 
 # Generated HTML files
 *.html
+*.xhtml
+
+*.bak
 
 # Generated PDF files
 *.pdf
+/nbproject/private/
+/XML.iml
+/XML.xpr
+/.idea/
