@@ -1,31 +1,28 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<!--<xsl:stylesheet 
-xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:exslt="urn:schemas-microsoft-com:xslt" exclude-result-prefixes="exslt" version="1.0">-->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="2.0">
-    <!--<xsl:output method="xml" indent="yes"/>-->
+
     <atlas:data xmlns:atlas="urn:www.atlasti.com/xml/001">
         <atlasDescription version="2.1">
             <!-- Version of this description syntax -->
             <version number="2.1"/>
             <!-- version of this stylesheet -->
-            <friendlyName>indexes</friendlyName>
+            <friendlyName>CEAP Library</friendlyName>
             <!-- To be displayed in ATLAS.ti -->
-            <shortDescription/>
+            <shortDescription>CEAP Library</shortDescription>
             <category>library</category>
             <complexity/>
             <!-- Computational complexity -->
             <iconPath/>
             <!-- To be displayed in ATLAS.ti -->
-            <author name="Thomas Ringmayr" email="xml@support.atlasti.com"
-                url="www.atlasti.com/xml.html"/>
-            <creationDate>2012-02-02</creationDate>
-            <modificationDate>2012-02-02</modificationDate>
+            <author name="Tel Amiel" email="tel@amiel.info" url="http://ceap.nied.unicamp.br"/>
+            <creationDate>2016-07-01</creationDate>
+            <modificationDate>2016-10-01</modificationDate>
             <sourceType type="" version=""/>
             <!-- XML type acccepted as input -->
             <targetDocType/>
         </atlasDescription>
     </atlas:data>
-    <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+    
     <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
     <!-- UNIQUE list of CODES -->
     <xsl:variable name="uniquelist_codes">
@@ -124,6 +121,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:exslt="urn:schemas-micros
             </xsl:if>
         </xsl:for-each>
     </xsl:variable>
+    
     <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
     <xsl:variable name="uniquelist_codes_fulldata">
         <xsl:for-each select="storedHU/links/objectSegmentLinks/codings/iLink">
@@ -312,7 +310,8 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:exslt="urn:schemas-micros
             </xsl:if>
         </xsl:for-each>
     </xsl:variable>
-    <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+    
+    <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
     <!-- create fragment tree, grouping all codes used per quote per PD  -->
     <!-- the follwing code still located in NNN_pds_codes.xsl, removing from there creates error -->
     <xsl:variable name="indextree_quotes_per_codes">
@@ -391,6 +390,8 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:exslt="urn:schemas-micros
             </xsl:element>
         </xsl:for-each>
     </xsl:variable>
+    
+    <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
     <xsl:variable name="pdsWithCodes">
         <xsl:for-each select="$indextree_quotes_per_codes//pd">
             <xsl:sort select="@id"/>
@@ -437,6 +438,8 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:exslt="urn:schemas-micros
             </xsl:element>
         </xsl:for-each>
     </xsl:variable>
+    
+    <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
     <xsl:variable name="PDFamiliesWithCodes">
         <xsl:for-each select="//primDocFamilies/primDocFamily">
             <xsl:sort select="@id"/>
@@ -462,11 +465,13 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:exslt="urn:schemas-micros
             </xsl:element>
         </xsl:for-each>
     </xsl:variable>
+    
+    <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
     <!--<xsl:variable name="codeslist">-->
     <!--<xsl:for-each select="exslt:node-set($indextree_quotes_per_codes)//code">-->
     <!--<xsl:sort select="@id"/>-->
     <!--<xsl:copy-of select="."/>-->
     <!--</xsl:for-each>-->
     <!--</xsl:variable>-->
-    <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+   
 </xsl:stylesheet>
