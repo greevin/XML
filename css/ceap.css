@@ -264,6 +264,11 @@
             content: "Página " counter(page) " de " counter(pages);
         }
     }
+    @page relatorioPage:first {
+        @top-right {
+            content: normal;
+        }
+    }
     @page relatorioPage:blank,
     resumoPage:blank {
         @top-right {
@@ -444,7 +449,6 @@
     .accordion dt a {
         text-align: center;
         font-weight: 500;
-        padding: .5em;
         font-size: 16px;
         text-decoration: none;
     }
